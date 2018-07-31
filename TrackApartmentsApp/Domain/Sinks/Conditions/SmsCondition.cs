@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using TrackApartmentsApp.Domain.Models;
+﻿using TrackApartmentsApp.Domain.Models;
 
-namespace TrackApartmentsApp.Domain.Conditions
+namespace TrackApartmentsApp.Domain.Sinks.Conditions
 {
-    public class SmsCondition
+    public class SmsCondition : ISmsCondition
     {
-        public IEnumerable<Apartment> GetValid(List<Apartment> list)
+        public bool IsValid(Apartment flat)
         {
-            foreach (var item in list)
-            {
-                var deltaTime = (int)DateTime.Now.Subtract(item.Created).TotalDays;
+            var isNew = new IsNewSpecification(1);
+            var isOwner = new IsOwnerSpecification();
+            var priceLower = new PriceLowerSpecification(350);
 
-                if (item.IsCreatedByOwner && deltaTime <= 1 && item.Price <= 350)
-                {
-                    yield return item;
-                }
-            }
+            return isNew
+                .And(isOwner)
+                .And(priceLower)
+                    .IsSatisfiedBy(flat);
         }
     }
 }

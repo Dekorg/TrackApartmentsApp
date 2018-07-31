@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
-using TrackApartmentsApp.Domain.Conditions;
 using TrackApartmentsApp.Domain.Connectors.Abstract;
 using TrackApartmentsApp.Domain.Models;
 using TrackApartmentsApp.Domain.Sinks.Abstract;
+using TrackApartmentsApp.Domain.Sinks.Conditions;
 
 namespace TrackApartmentsApp
 {
@@ -51,15 +51,12 @@ namespace TrackApartmentsApp
 
             logger.LogDebug($"Count new items: {newItems.Count}");
 
-            SmsCondition condition = new SmsCondition();
-            var validResults = condition.GetValid(newItems).ToList();
-
-            foreach (var item in validResults)
+            foreach (var item in newItems)
             {
                 logger.LogDebug($"New items: {item.Address} url: {item.Uri}");
             }
 
-            return validResults;
+            return newItems;
         }
     }
 }

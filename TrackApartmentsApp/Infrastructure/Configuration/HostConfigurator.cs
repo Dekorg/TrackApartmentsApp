@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +7,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TrackApartmentsApp.Core.Contracts;
 using TrackApartmentsApp.Core.Contracts.Storage;
-using TrackApartmentsApp.Core.Interfaces;
 using TrackApartmentsApp.Core.Interfaces.PageParser;
 using TrackApartmentsApp.Core.Settings;
 using TrackApartmentsApp.Data;
@@ -22,6 +19,7 @@ using TrackApartmentsApp.Domain.Models;
 using TrackApartmentsApp.Domain.Secrets;
 using TrackApartmentsApp.Domain.Sinks;
 using TrackApartmentsApp.Domain.Sinks.Abstract;
+using TrackApartmentsApp.Domain.Sinks.Conditions;
 
 namespace TrackApartmentsApp.Infrastructure.Configuration
 {
@@ -54,6 +52,9 @@ namespace TrackApartmentsApp.Infrastructure.Configuration
                     services.AddScoped<IStorageWriteRepository<Apartment>, StorageAppartmentWriteRepository>();
                     services.AddScoped<IStorageWorker, StorageWorker>();
                     services.AddScoped<IStorageConnector, OnlinerStorageConnector>();
+
+                    services.AddScoped<IEmailCondition, EmailCondition>();
+                    services.AddScoped<ISmsCondition, SmsCondition>();
 
                     services.AddScoped<ISink<Apartment>, SmsSink>();
                     services.AddScoped<ISink<Apartment>, EmailSink>();
