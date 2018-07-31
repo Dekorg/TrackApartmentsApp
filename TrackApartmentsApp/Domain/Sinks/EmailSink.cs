@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using TrackApartmentsApp.Core.Settings;
 using TrackApartmentsApp.Domain.Models;
 using TrackApartmentsApp.Domain.Sinks.Abstract;
@@ -13,11 +14,13 @@ namespace TrackApartmentsApp.Domain.Sinks
     {
         private readonly SendGridSettings settings;
         private readonly IEmailCondition condition;
+        private readonly ILogger logger;
 
-        public EmailSink(SendGridSettings settings, IEmailCondition condition)
+        public EmailSink(SendGridSettings settings, IEmailCondition condition, ILogger logger)
         {
             this.settings = settings;
             this.condition = condition;
+            this.logger = logger;
         }
 
         public override async Task WriteAsync(Apartment message)
@@ -40,8 +43,12 @@ namespace TrackApartmentsApp.Domain.Sinks
                 };
 
                 await smtpClient.SendMailAsync(mailMessage);
+                logger.LogInformation("Email message has been sent.", message);
             }
-
+            else
+            {
+                logger.LogInformation("Email message has been declined.", message);
+            }
         }
     }
 }
