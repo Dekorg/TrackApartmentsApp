@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using TrackApartmentsApp.Core.Interfaces.PageParser;
 using TrackApartmentsApp.Data.PageParsers.Abstract;
 
 namespace TrackApartmentsApp.Data.PageParsers.Onliner
 {
-    public class OnlinerPageParser : PageParser
+    public class OnlinerPageParser : PageParser, IOnlinerPageParser
     {
         public override IEnumerable<string> FindByRegex(string content, Regex regex)
         {

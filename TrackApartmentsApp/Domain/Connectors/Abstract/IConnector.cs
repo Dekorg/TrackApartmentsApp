@@ -6,6 +6,6 @@ namespace TrackApartmentsApp.Domain.Connectors.Abstract
 {
     public interface IConnector
     {
-        Task<List<Apartment>> GetAsync(string url);
+        Task<List<Apartment>> GetAsync();
     }
 }
