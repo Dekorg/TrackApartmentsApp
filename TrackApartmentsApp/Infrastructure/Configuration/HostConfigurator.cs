@@ -44,20 +44,19 @@ namespace TrackApartmentsApp.Infrastructure.Configuration
                     services.AddOptions();
                     services.AddScoped<ILoadEngine, LoadEngine>();
 
+                    services.AddHttpClient<ILoadEngine, LoadEngine>();
+
                     services.AddScoped<IResponseParser, ResponseParser>();
                     services.AddScoped<IOnlinerPageParser, OnlinerPageParser>();
                     services.AddScoped<IOnlinerConnector, OnlinerConnector>();
-
                     services.AddScoped<IStorageWorker, StorageWorker>();
                     services.AddScoped<IStorageReadRepository<Apartment>, StorageAppartmentReadRepository>();
                     services.AddScoped<IStorageWriteRepository<Apartment>, StorageAppartmentWriteRepository>();
                     services.AddScoped<IStorageWorker, StorageWorker>();
-
                     services.AddScoped<IStorageConnector, OnlinerStorageConnector>();
 
                     services.AddScoped<ISink<Apartment>, SmsSink>();
                     services.AddScoped<ISink<Apartment>, EmailSink>();
-
                     services.AddScoped<ICompositeSink<Apartment>, CompositeSink>(ctx =>
                     {
                         var sinks = ctx.GetServices<ISink<Apartment>>();
