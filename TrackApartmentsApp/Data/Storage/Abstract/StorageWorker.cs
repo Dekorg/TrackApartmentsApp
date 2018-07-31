@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
-using TrackApartmentsApp.Core.Interfaces.Storage;
+using TrackApartmentsApp.Core.Contracts.Storage;
 using TrackApartmentsApp.Core.Settings;
 
 namespace TrackApartmentsApp.Data.Storage.Abstract

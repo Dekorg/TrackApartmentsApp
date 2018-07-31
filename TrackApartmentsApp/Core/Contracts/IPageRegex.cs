@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using TrackApartmentsApp.Core.Enums;
 
-namespace TrackApartmentsApp.Data.Regexps
+namespace TrackApartmentsApp.Data.Contracts
 {
     public interface IPageRegex
     {

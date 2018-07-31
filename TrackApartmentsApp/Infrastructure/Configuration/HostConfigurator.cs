@@ -6,9 +6,11 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using TrackApartmentsApp.Core.Contracts;
+using TrackApartmentsApp.Core.Contracts.Storage;
 using TrackApartmentsApp.Core.Interfaces;
 using TrackApartmentsApp.Core.Interfaces.PageParser;
-using TrackApartmentsApp.Core.Interfaces.Storage;
 using TrackApartmentsApp.Core.Settings;
 using TrackApartmentsApp.Data;
 using TrackApartmentsApp.Data.PageParsers.Onliner;
@@ -18,12 +20,14 @@ using TrackApartmentsApp.Domain.Connectors.Abstract;
 using TrackApartmentsApp.Domain.Connectors.OnlinerConnector;
 using TrackApartmentsApp.Domain.Models;
 using TrackApartmentsApp.Domain.Secrets;
+using TrackApartmentsApp.Domain.Sinks;
+using TrackApartmentsApp.Domain.Sinks.Abstract;
 
 namespace TrackApartmentsApp.Infrastructure.Configuration
 {
-    public class DependencyConfigurator
+    public class HostConfigurator
     {
-        public IHost BuildHost(ExecutionContext context)
+        public IHost BuildHost(ExecutionContext context, ILogger log)
         {
             var builder = new HostBuilder()
                 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -51,7 +55,25 @@ namespace TrackApartmentsApp.Infrastructure.Configuration
 
                     services.AddScoped<IStorageConnector, OnlinerStorageConnector>();
 
+                    services.AddScoped<ISink<Apartment>, SmsSink>();
+                    services.AddScoped<ISink<Apartment>, EmailSink>();
+
+                    services.AddScoped<ICompositeSink<Apartment>, CompositeSink>(ctx =>
+                    {
+                        var sinks = ctx.GetServices<ISink<Apartment>>();
+
+                        var composite = new CompositeSink();
+
+                        foreach (var service in sinks)
+                        {
+                            composite.Add((Sink)service);
+                        }
+                        return composite;
+                    });
+
                     services.AddScoped<ApartmentService>();
+
+                    services.AddSingleton(log);
 
                     ConfigureSettings(hostContext, services);
                 });

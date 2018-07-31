@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TrackApartmentsApp.Core.Interfaces.Storage;
+using TrackApartmentsApp.Core.Contracts.Storage;
 using TrackApartmentsApp.Core.Settings;
 using TrackApartmentsApp.Domain.Connectors.Abstract;
 using TrackApartmentsApp.Domain.Models;

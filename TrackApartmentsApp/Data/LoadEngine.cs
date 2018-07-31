@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using TrackApartmentsApp.Core.Contracts;
 using TrackApartmentsApp.Core.Interfaces;
 
 namespace TrackApartmentsApp.Data

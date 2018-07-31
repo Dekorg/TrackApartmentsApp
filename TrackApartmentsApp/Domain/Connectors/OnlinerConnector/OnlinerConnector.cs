@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TrackApartmentsApp.Core.Contracts;
 using TrackApartmentsApp.Core.Interfaces;
 using TrackApartmentsApp.Core.Interfaces.PageParser;
 using TrackApartmentsApp.Core.Settings;

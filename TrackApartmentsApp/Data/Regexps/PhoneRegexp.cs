@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using TrackApartmentsApp.Core.Enums;
+using TrackApartmentsApp.Data.Contracts;
 
 namespace TrackApartmentsApp.Data.Regexps
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TrackApartmentsApp.Core.Interfaces.Storage;
+using TrackApartmentsApp.Core.Contracts.Storage;
 using TrackApartmentsApp.Data.Storage.Entity;
 using TrackApartmentsApp.Data.Storage.Entity.Extensions;
 using TrackApartmentsApp.Domain.Models;

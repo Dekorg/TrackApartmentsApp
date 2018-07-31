@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace TrackApartmentsApp.Core.Interfaces.Storage
+namespace TrackApartmentsApp.Core.Contracts.Storage
 {
     public interface IStorageReadRepository<T>
     {
