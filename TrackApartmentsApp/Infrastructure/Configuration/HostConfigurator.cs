@@ -82,15 +82,19 @@ namespace TrackApartmentsApp.Infrastructure.Configuration
         }
 
 
-        private static async Task LoadSecretSettings(StorageSettings storageSettings, AppSettings appSettings, TwilioSettings twilioSettings)
+        private static async Task LoadSecretSettings(StorageSettings storageSettings, AppSettings appSettings, TwilioSettings twilioSettings, SendGridSettings sendGridSettings)
         {
             var store = new SecretsStore(appSettings);
 
             storageSettings.ConnectionString = await store.GetOrLoadSettingAsync(storageSettings.ConnectionString);
+
             twilioSettings.AccountSid = await store.GetOrLoadSettingAsync(twilioSettings.AccountSid);
             twilioSettings.AuthToken = await store.GetOrLoadSettingAsync(twilioSettings.AuthToken);
             twilioSettings.PhoneNumberFrom = await store.GetOrLoadSettingAsync(twilioSettings.PhoneNumberFrom);
             twilioSettings.PhoneNumberTo = await store.GetOrLoadSettingAsync(twilioSettings.PhoneNumberTo);
+
+            sendGridSettings.Password = await store.GetOrLoadSettingAsync(sendGridSettings.Password);
+            sendGridSettings.UserName = await store.GetOrLoadSettingAsync(sendGridSettings.UserName);
         }
 
         private static void ConfigureSettings(HostBuilderContext hostContext, IServiceCollection services)
@@ -99,18 +103,23 @@ namespace TrackApartmentsApp.Infrastructure.Configuration
             var storageSettings = new StorageSettings();
             var appSettings = new AppSettings();
             var twilioSettings = new TwilioSettings();
+            var sendGridSettings = new SendGridSettings();
 
             hostContext.Configuration.GetSection(nameof(StorageSettings)).Bind(storageSettings);
             hostContext.Configuration.GetSection(nameof(AppSettings)).Bind(appSettings);
             hostContext.Configuration.GetSection(nameof(OnlinerSettings)).Bind(onlinerSettings);
             hostContext.Configuration.GetSection(nameof(TwilioSettings)).Bind(twilioSettings);
+            hostContext.Configuration.GetSection(nameof(SendGridSettings)).Bind(sendGridSettings);
 
-            LoadSecretSettings(storageSettings, appSettings, twilioSettings).GetAwaiter().GetResult();
+            LoadSecretSettings(storageSettings, appSettings, twilioSettings, sendGridSettings)
+                .GetAwaiter()
+                .GetResult();
 
             services.AddSingleton(storageSettings);
             services.AddSingleton(appSettings);
             services.AddSingleton(onlinerSettings);
             services.AddSingleton(twilioSettings);
+            services.AddSingleton(sendGridSettings);
         }
     }
 }

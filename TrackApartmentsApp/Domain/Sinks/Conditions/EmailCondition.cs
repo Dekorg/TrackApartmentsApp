@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using TrackApartmentsApp.Domain.Models;
 
 namespace TrackApartmentsApp.Domain.Sinks.Conditions
@@ -9,7 +7,14 @@ namespace TrackApartmentsApp.Domain.Sinks.Conditions
     {
         public bool IsValid(Apartment flat)
         {
-            throw new NotImplementedException();
+            var isNew = new IsNewSpecification(1);
+            var isOwner = new IsOwnerSpecification();
+            var priceLower = new PriceLowerSpecification(400);
+
+            return isNew
+                .And(isOwner)
+                .And(priceLower)
+                .IsSatisfiedBy(flat);
         }
     }
 }
