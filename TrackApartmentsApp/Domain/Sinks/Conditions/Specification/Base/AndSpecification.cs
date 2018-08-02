@@ -1,5 +1,5 @@
 ﻿using System;
-using TrackApartmentsApp.Domain.Sinks.Conditions.Abstract;
+using TrackApartmentsApp.Domain.Sinks.Conditions.Specification.Base.Abstract;
 
 namespace TrackApartmentsApp.Domain.Sinks.Conditions.Specification.Base
 {

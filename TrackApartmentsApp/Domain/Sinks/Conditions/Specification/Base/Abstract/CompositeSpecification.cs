@@ -1,7 +1,4 @@
-﻿using System;
-using TrackApartmentsApp.Domain.Sinks.Conditions.Specification.Base;
-
-namespace TrackApartmentsApp.Domain.Sinks.Conditions.Abstract
+﻿namespace TrackApartmentsApp.Domain.Sinks.Conditions.Specification.Base.Abstract
 {
     public abstract class CompositeSpecification<T> : ISpecification<T>
     {

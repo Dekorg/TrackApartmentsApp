@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using TrackApartmentsApp.Domain.Models;
-using TrackApartmentsApp.Domain.Sinks.Conditions.Abstract;
+﻿using TrackApartments.Contracts.Models;
+using TrackApartmentsApp.Domain.Sinks.Conditions.Specification.Base.Abstract;
 
-namespace TrackApartmentsApp.Domain.Sinks.Conditions
+namespace TrackApartmentsApp.Domain.Sinks.Conditions.Specification
 {
     public class PriceLowerSpecification : CompositeSpecification<Apartment>
     {
@@ -20,16 +18,3 @@ namespace TrackApartmentsApp.Domain.Sinks.Conditions
         }
     }
 }
-
-//public IEnumerable<Apartment> GetValid(List<Apartment> list)
-//{
-//foreach (var item in list)
-//{
-//var deltaTime = (int)DateTime.Now.Subtract(item.Created).TotalDays;
-
-//    if (item.IsCreatedByOwner && deltaTime <= 1 && item.Price <= 350)
-//{
-//    yield return item;
-//}
-//}
-//}

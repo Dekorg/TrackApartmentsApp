@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TrackApartmentsApp.Domain.Models;
+using TrackApartments.Contracts.Models;
+using TrackApartmentsApp.Domain.Sinks.Abstract;
 
-namespace TrackApartmentsApp.Domain.Sinks.Abstract
+namespace TrackApartmentsApp.Domain.Sinks
 {
-    public class CompositeSink : Sink, ICompositeSink<Apartment>
+    public sealed class CompositeSink : Sink, ICompositeSink<Apartment>
     {
-        private List<Sink> children = new List<Sink>();
+        private readonly List<Sink> children = new List<Sink>();
 
         public void Add(Sink component)
         {

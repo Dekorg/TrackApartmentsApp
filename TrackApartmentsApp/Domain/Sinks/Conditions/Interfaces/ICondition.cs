@@ -1,7 +1,6 @@
-﻿using System;
-using TrackApartmentsApp.Domain.Models;
+﻿using TrackApartments.Contracts.Models;
 
-namespace TrackApartmentsApp.Domain.Sinks.Conditions
+namespace TrackApartmentsApp.Domain.Sinks.Conditions.Interfaces
 {
     public interface ICondition
     {

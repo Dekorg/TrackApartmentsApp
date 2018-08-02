@@ -3,14 +3,14 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using TrackApartmentsApp.Core.Settings;
-using TrackApartmentsApp.Domain.Models;
+using TrackApartments.Contracts.Models;
+using TrackApartments.Onliner.Settings;
 using TrackApartmentsApp.Domain.Sinks.Abstract;
-using TrackApartmentsApp.Domain.Sinks.Conditions;
+using TrackApartmentsApp.Domain.Sinks.Conditions.Interfaces;
 
 namespace TrackApartmentsApp.Domain.Sinks
 {
-    public class EmailSink : Sink
+    public sealed class EmailSink : Sink
     {
         private readonly SendGridSettings settings;
         private readonly IEmailCondition condition;

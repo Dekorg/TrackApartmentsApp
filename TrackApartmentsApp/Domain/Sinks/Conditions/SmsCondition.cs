@@ -1,4 +1,6 @@
-﻿using TrackApartmentsApp.Domain.Models;
+﻿using TrackApartments.Contracts.Models;
+using TrackApartmentsApp.Domain.Sinks.Conditions.Interfaces;
+using TrackApartmentsApp.Domain.Sinks.Conditions.Specification;
 
 namespace TrackApartmentsApp.Domain.Sinks.Conditions
 {

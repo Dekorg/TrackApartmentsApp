@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TrackApartmentsApp.Domain.Sinks.Conditions
+﻿namespace TrackApartmentsApp.Domain.Sinks.Conditions.Interfaces
 {
     public interface IEmailCondition : ICondition
     {

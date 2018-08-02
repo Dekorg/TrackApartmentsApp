@@ -1,8 +1,8 @@
 ﻿using System;
-using TrackApartmentsApp.Domain.Models;
-using TrackApartmentsApp.Domain.Sinks.Conditions.Abstract;
+using TrackApartments.Contracts.Models;
+using TrackApartmentsApp.Domain.Sinks.Conditions.Specification.Base.Abstract;
 
-namespace TrackApartmentsApp.Domain.Sinks.Conditions
+namespace TrackApartmentsApp.Domain.Sinks.Conditions.Specification
 {
     public class IsNewSpecification : CompositeSpecification<Apartment>
     {

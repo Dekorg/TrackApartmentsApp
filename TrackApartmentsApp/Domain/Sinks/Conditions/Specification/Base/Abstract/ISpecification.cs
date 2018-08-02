@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TrackApartmentsApp.Domain.Sinks.Conditions.Abstract
+﻿namespace TrackApartmentsApp.Domain.Sinks.Conditions.Specification.Base.Abstract
 {
     public interface ISpecification<T>
     {

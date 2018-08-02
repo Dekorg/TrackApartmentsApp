@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using TrackApartmentsApp.Domain.Models;
+using TrackApartments.Contracts.Models;
 
 namespace TrackApartmentsApp.Domain.Sinks.Abstract
 {
