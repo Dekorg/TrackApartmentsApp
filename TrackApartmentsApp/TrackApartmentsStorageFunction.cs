@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using TrackApartments.Contracts.Models;
 using TrackApartments.Storage;
 using TrackApartments.Storage.Infrastructure.Configuration;
@@ -13,9 +12,9 @@ namespace TrackApartmentsApp
     public static class TrackApartmentsStorageFunction
     {
         [FunctionName("TrackApartmentsStorageFunction")]
-        public static async Task Run([QueueTrigger("queueapartments", Connection = "QueueConnectionString")]string myQueueItem, ILogger log, ExecutionContext context)
+        public static async Task Run([QueueTrigger("queueapartments", Connection = "QueueConnectionString")]Apartment flat, ILogger log, ExecutionContext context)
         {
-            log.LogInformation($"{nameof(TrackApartmentsStorageFunction)} has started.", myQueueItem);
+            log.LogInformation($"{nameof(TrackApartmentsStorageFunction)} has started.", flat);
 
             try
             {
@@ -24,9 +23,8 @@ namespace TrackApartmentsApp
                 host.Start();
 
                 var app = (StorageApartmentService)host.Services.GetService(typeof(StorageApartmentService));
-                var apartment = JsonConvert.DeserializeObject<Apartment>(myQueueItem);
 
-                await app.SaveIfNewItemAsync(apartment);
+                await app.SaveIfNewItemAsync(flat);
             }
             catch (Exception ex)
             {
