@@ -16,6 +16,7 @@ namespace TrackApartmentsApp
         {
             var apartment = JsonConvert.DeserializeObject<Apartment>(myQueueItem);
 
+            //todo: add user service to accept users for apartments
             var msgOptions = new CreateMessageOptions(new PhoneNumber("+375291602219"))
             {
                 Body = apartment.ToString()
