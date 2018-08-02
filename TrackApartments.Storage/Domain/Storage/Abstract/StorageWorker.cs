@@ -48,6 +48,7 @@ namespace TrackApartments.Storage.Domain.Storage.Abstract
 
         public async Task DeleteAsync<T>(T item) where T : ITableEntity, new()
         {
+            item.ETag = "*";
             var operation = TableOperation.Delete(item);
             await table.ExecuteAsync(operation);
         }

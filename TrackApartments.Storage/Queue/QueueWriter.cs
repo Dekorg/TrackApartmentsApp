@@ -23,6 +23,7 @@ namespace TrackApartments.Storage.Queue
 
         public async Task WriteAsync(Apartment order)
         {
+
             var messageAsJson = JsonConvert.SerializeObject(order);
             var message = new CloudQueueMessage(messageAsJson);
             await queue.AddMessageAsync(message);

@@ -38,7 +38,6 @@ namespace TrackApartments.Storage.Infrastructure.Configuration
                     services.AddScoped<IStorageWriteRepository<Apartment>, StorageAppartmentWriteRepository>();
                     services.AddScoped<IStorageWorker, StorageWorker>();
                     services.AddScoped<IStorageConnector, StorageConnector>();
-                    services.AddScoped<IStorageConnector, StorageConnector>();
                     services.AddScoped<StorageApartmentService>();
                     services.AddSingleton(log);
 

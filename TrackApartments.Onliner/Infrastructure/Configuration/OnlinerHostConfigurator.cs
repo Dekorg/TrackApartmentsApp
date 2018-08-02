@@ -41,31 +41,6 @@ namespace TrackApartments.Onliner.Infrastructure.Configuration
                     services.AddScoped<IOnlinerPageParser, OnlinerPageParser>();
                     services.AddScoped<IOnlinerConnector, OnlinerConnector>();
                     services.AddScoped<IQueueWriter<Apartment>, QueueWriter>();
-
-                    //services.AddScoped<IStorageWorker, StorageWorker>();
-                    //services.AddScoped<IStorageReadRepository<Apartment>, StorageAppartmentReadRepository>();
-                    //services.AddScoped<IStorageWriteRepository<Apartment>, StorageAppartmentWriteRepository>();
-                    //services.AddScoped<IStorageWorker, StorageWorker>();
-                    //services.AddScoped<IStorageConnector, StorageConnector>();
-
-                    //services.AddScoped<IEmailCondition, EmailCondition>();
-                    //services.AddScoped<ISmsCondition, SmsCondition>();
-
-                    //services.AddScoped<ISink<Apartment>, SmsSink>();
-                    //services.AddScoped<ISink<Apartment>, EmailSink>();
-                    //services.AddScoped<ICompositeSink<Apartment>, CompositeSink>(ctx =>
-                    //{
-                    //    var sinks = ctx.GetServices<ISink<Apartment>>();
-
-                    //    var composite = new CompositeSink();
-
-                    //    foreach (var service in sinks)
-                    //    {
-                    //        composite.Add((Sink)service);
-                    //    }
-                    //    return composite;
-                    //});
-
                     services.AddScoped<OnlinerApartmentService>();
 
                     services.AddSingleton(log);

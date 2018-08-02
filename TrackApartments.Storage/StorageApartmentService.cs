@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using TrackApartments.Contracts;
 using TrackApartments.Contracts.Models;
 using TrackApartments.Storage.Domain.Contracts;
-using TrackApartments.Storage.Queue;
 
 namespace TrackApartments.Storage
 {
@@ -30,14 +29,14 @@ namespace TrackApartments.Storage
 
             var savedItems = await storageConnector.GetSavedItemsAsync();
 
-            bool isNew = !savedItems.Contains(apartment) && !storageConnector.IsObsoleteItem(apartment);
+            bool isNew = true; //!savedItems.Contains(apartment) && !storageConnector.IsObsoleteItem(apartment);
 
             if (isNew)
             {
                 await storageConnector.SaveItemAsync(apartment);
-                logger.LogDebug($"New apartment: {apartment.Address} url: {apartment.Uri}");
-
                 await queueWriter.WriteAsync(apartment);
+
+                logger.LogDebug($"New apartment: {apartment.Address} url: {apartment.Uri}");
             }
 
             await storageConnector.DeleteObsoleteItemsAsync(savedItems);
