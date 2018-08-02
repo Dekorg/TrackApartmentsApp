@@ -29,7 +29,7 @@ namespace TrackApartments.Storage
 
             var savedItems = await storageConnector.GetSavedItemsAsync();
 
-            bool isNew = true; //!savedItems.Contains(apartment) && !storageConnector.IsObsoleteItem(apartment);
+            bool isNew = !savedItems.Contains(apartment) && !storageConnector.IsObsoleteItem(apartment);
 
             if (isNew)
             {
@@ -39,7 +39,7 @@ namespace TrackApartments.Storage
                 logger.LogDebug($"New apartment: {apartment.Address} url: {apartment.Uri}");
             }
 
-            await storageConnector.DeleteObsoleteItemsAsync(savedItems);
+            // await storageConnector.DeleteObsoleteItemsAsync(savedItems);
 
             return isNew;
         }

@@ -30,9 +30,6 @@ namespace TrackApartments.Storage.Domain.Storage.Abstract
 
         public async Task<List<T>> LoadListAsync<T>(string key) where T : ITableEntity, new()
         {
-            //var query = new TableQuery<T>()
-            //    .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, key));
-
             TableContinuationToken token = null;
             var entities = new List<T>();
             do
