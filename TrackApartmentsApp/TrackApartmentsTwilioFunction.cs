@@ -27,7 +27,7 @@ namespace TrackApartmentsApp
 
             log.LogInformation("New sms has been sent.", msgOptions, order);
 
-            return null;
+            return msgOptions;
         }
     }
 }
