@@ -16,7 +16,7 @@ namespace TrackApartmentsApp
         [FunctionName("TrackOnlinerApartmentsFunction")]
         public static async Task<ActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]HttpRequest req, ILogger log, ExecutionContext context)
         {
-            log.LogInformation($"{nameof(TrackOnlinerApartmentsFunction)} has started.");
+            log.LogDebug($"{nameof(TrackOnlinerApartmentsFunction)} has started.");
 
             string url = req.Query["url"];
 

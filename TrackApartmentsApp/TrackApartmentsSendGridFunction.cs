@@ -11,7 +11,7 @@ namespace TrackApartmentsApp
         [return: SendGrid(ApiKey = "SendGridAPIKey", From = "donotreply@trackapartments.com")]
         public static SendGridMessage Run([QueueTrigger("newordersemailqueue", Connection = "QueueConnectionString")]  Order order, ILogger log)
         {
-            log.LogInformation($"{nameof(TrackApartmentsSendGridFunction)} has started.", order);
+            log.LogDebug($"{nameof(TrackApartmentsSendGridFunction)} has started.", order);
 
             var message = new SendGridMessage
             {
@@ -21,7 +21,7 @@ namespace TrackApartmentsApp
             message.AddContent("text/plain", order.Apartment.ToString());
             message.AddTo(new EmailAddress(order.User.Email, order.User.UserName));
 
-            log.LogInformation($"New email message has been sent to: {order.User.Email}", message, order);
+            log.LogDebug($"New email message has been sent to: {order.User.Email}", message, order);
 
             return message;
         }

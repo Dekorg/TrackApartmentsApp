@@ -14,7 +14,7 @@ namespace TrackApartmentsApp
         [FunctionName("TrackApartmentsStorageFunction")]
         public static async Task Run([QueueTrigger("queueapartments", Connection = "QueueConnectionString")]Apartment flat, ILogger log, ExecutionContext context)
         {
-            log.LogInformation($"{nameof(TrackApartmentsStorageFunction)} has started.", flat);
+            log.LogDebug($"{nameof(TrackApartmentsStorageFunction)} has started.", flat);
 
             try
             {
