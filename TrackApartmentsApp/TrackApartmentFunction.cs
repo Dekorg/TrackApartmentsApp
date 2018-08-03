@@ -19,6 +19,8 @@ namespace TrackApartmentsApp
         [FunctionName("TrackApartmentFunction")]
         public static async Task Run([TimerTrigger("0 */1 * * * *")] TimerInfo myTimer, ILogger log, ExecutionContext context)
         {
+            log.LogDebug($"{nameof(TrackApartmentFunction)} has started.", myTimer);
+
             await CachedClient.GetAsync(Url);
         }
     }

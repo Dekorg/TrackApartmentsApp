@@ -7,5 +7,7 @@ namespace TrackApartments.Contracts.Models
         public Apartment Apartment { get; set; }
 
         public User User { get; set; }
+
+        public UserSettings Settings { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace TrackApartmentsApp
         [return: TwilioSms(AccountSidSetting = "TwilioAccountSid", AuthTokenSetting = "TwilioAuthToken", From = "+18509002504")]
         public static CreateMessageOptions Run([QueueTrigger("neworderssmsqueue", Connection = "QueueConnectionString")] Order order, ILogger log)
         {
-            log.LogInformation($"{nameof(TrackApartmentsTwilioFunction)} has started.", order);
+            log.LogDebug($"{nameof(TrackApartmentsTwilioFunction)} has started.", order);
 
             if (order.Apartment == null || String.IsNullOrEmpty(order.User.Phone))
             {
@@ -25,7 +25,7 @@ namespace TrackApartmentsApp
                 Body = order.Apartment.ToString()
             };
 
-            log.LogInformation("New sms has been sent.", msgOptions, order);
+            log.LogDebug("New sms has been sent.", msgOptions, order);
 
             return msgOptions;
         }
