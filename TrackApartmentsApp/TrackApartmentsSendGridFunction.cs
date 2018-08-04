@@ -19,9 +19,9 @@ namespace TrackApartmentsApp
             };
 
             message.AddContent("text/plain", order.Apartment.ToString());
-            message.AddTo(new EmailAddress(order.User.Email, order.User.UserName));
+            message.AddTo(new EmailAddress(order.UserInfo.Email, order.UserInfo.UserName));
 
-            log.LogDebug($"New email message has been sent to: {order.User.Email}", message, order);
+            log.LogDebug($"New email message has been sent to: {order.UserInfo.Email}", message, order);
 
             return message;
         }

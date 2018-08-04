@@ -29,7 +29,7 @@ namespace TrackApartments.Storage
 
             var savedItems = await storageConnector.GetSavedItemsAsync();
 
-            bool isNew = !savedItems.Contains(apartment) && !storageConnector.IsObsoleteItem(apartment);
+            bool isNew = true;// !savedItems.Contains(apartment) && !storageConnector.IsObsoleteItem(apartment);
 
             if (isNew)
             {

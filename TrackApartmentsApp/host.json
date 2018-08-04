@@ -1,6 +1,18 @@
 {
-  //"IsEncrypted": false,
-  //"Values": {
-  //  "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=trackapartmentsstorage;AccountKey=IzMXx3Bk/a4JxMrkU2SzKCiOOxS58o34cocx4MCv1e1ZPoFaCbZ4d8iSH7EdrQgDVcuRO6ggA5FN+IDXULm5AQ==;EndpointSuffix=core.windows.net"
-  //}
+  "logger": {
+    "categoryFilter": {
+      "defaultLevel": "Information",
+      "categoryLevels": {
+        "Host": "Information",
+        "Function": "Information",
+        "Host.Aggregator": "Information"
+      }
+    }
+  },
+  "applicationInsights": {
+    "sampling": {
+      "isEnabled": true,
+      "maxTelemetryItemsPerSecond": 5
+    }
+  }
 }

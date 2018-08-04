@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TrackApartments.Contracts.Models
 {
-    public class UserSettings
+    public class UserSinkSettings
     {
         public SinkSettings EmailSettings { get; set; }
 

@@ -15,12 +15,12 @@ namespace TrackApartmentsApp
         {
             log.LogDebug($"{nameof(TrackApartmentsTwilioFunction)} has started.", order);
 
-            if (order.Apartment == null || String.IsNullOrEmpty(order.User.Phone))
+            if (order.Apartment == null || String.IsNullOrEmpty(order.UserInfo.Phone))
             {
                 throw new ArgumentException(nameof(order));
             }
 
-            var msgOptions = new CreateMessageOptions(new PhoneNumber(order.User.Phone))
+            var msgOptions = new CreateMessageOptions(new PhoneNumber(order.UserInfo.Phone))
             {
                 Body = order.Apartment.ToString()
             };

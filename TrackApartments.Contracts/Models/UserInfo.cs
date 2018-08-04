@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TrackApartments.Contracts.Models
 {
-    public class User
+    public class UserInfo
     {
         public string Phone { get; set; }
 

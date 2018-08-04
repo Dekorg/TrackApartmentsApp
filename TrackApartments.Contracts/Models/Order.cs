@@ -6,8 +6,8 @@ namespace TrackApartments.Contracts.Models
     {
         public Apartment Apartment { get; set; }
 
-        public User User { get; set; }
+        public UserInfo UserInfo { get; set; }
 
-        public UserSettings Settings { get; set; }
+        public UserSinkSettings SinkSettings { get; set; }
     }
 }
