@@ -5,13 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TrackApartments.Contracts;
-using TrackApartments.Contracts.Models;
 using TrackApartments.Contracts.PageParser;
 using TrackApartments.Core.Load;
 using TrackApartments.Core.Secrets;
 using TrackApartments.Onliner.Domain.Connector;
 using TrackApartments.Onliner.Domain.PageParsers.Onliner;
-using TrackApartments.Onliner.Domain.Queue;
 using TrackApartments.Onliner.Settings;
 
 namespace TrackApartments.Onliner.Infrastructure.Configuration
@@ -40,7 +38,6 @@ namespace TrackApartments.Onliner.Infrastructure.Configuration
                     services.AddScoped<IResponseParser, ResponseParser>();
                     services.AddScoped<IOnlinerPageParser, OnlinerPageParser>();
                     services.AddScoped<IOnlinerConnector, OnlinerConnector>();
-                    services.AddScoped<IQueueWriter<Apartment>, QueueWriter>();
                     services.AddScoped<OnlinerApartmentService>();
 
                     services.AddSingleton(log);

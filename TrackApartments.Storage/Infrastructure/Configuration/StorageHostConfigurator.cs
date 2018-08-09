@@ -4,13 +4,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using TrackApartments.Contracts;
 using TrackApartments.Contracts.Models;
 using TrackApartments.Core.Secrets;
+using TrackApartments.Storage.Domain;
 using TrackApartments.Storage.Domain.Contracts;
 using TrackApartments.Storage.Domain.Storage;
 using TrackApartments.Storage.Domain.Storage.Abstract;
-using TrackApartments.Storage.Queue;
 using TrackApartments.Storage.Settings;
 
 namespace TrackApartments.Storage.Infrastructure.Configuration
@@ -33,7 +32,6 @@ namespace TrackApartments.Storage.Infrastructure.Configuration
                 {
                     services.AddOptions();
                     services.AddScoped<IStorageWorker, StorageWorker>();
-                    services.AddScoped<IQueueWriter<Apartment>, QueueWriter>();
                     services.AddScoped<IStorageReadRepository<Apartment>, StorageAppartmentReadRepository>();
                     services.AddScoped<IStorageWriteRepository<Apartment>, StorageAppartmentWriteRepository>();
                     services.AddScoped<IStorageWorker, StorageWorker>();

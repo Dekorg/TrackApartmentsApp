@@ -44,7 +44,8 @@ namespace TrackApartments.Storage.Domain.Storage.Entity.Extensions
                 Price = float.Parse(entity.Price),
                 Rooms = entity.Rooms,
                 Uri = new Uri(entity.Uri),
-                Phones = entity.Phones.Split(';').Where(x => !string.IsNullOrEmpty(x.Trim())).ToList()
+                Phones = entity.Phones.Split(';')
+                    .Where(x => !String.IsNullOrEmpty(x.Trim())).ToList()
             };
 
             return apartment;

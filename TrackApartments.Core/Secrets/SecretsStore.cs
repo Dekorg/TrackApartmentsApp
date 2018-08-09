@@ -42,7 +42,10 @@ namespace TrackApartments.Core.Secrets
         private static KeyVaultClient GetStore()
         {
             var azureServiceTokenProvider = new AzureServiceTokenProvider();
-            var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback), SharedClient);
+            var keyVaultClient = new KeyVaultClient(
+                new KeyVaultClient.AuthenticationCallback(
+                    azureServiceTokenProvider.KeyVaultTokenCallback),
+                SharedClient);
             return keyVaultClient;
         }
     }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using TrackApartments.Contracts;
 using TrackApartments.Contracts.Models;
 using TrackApartments.Onliner.Domain.Connector;
 
@@ -11,13 +9,11 @@ namespace TrackApartments.Onliner
     public class OnlinerApartmentService
     {
         private readonly IOnlinerConnector onlinerConnector;
-        private readonly IQueueWriter<Apartment> queueWriter;
         private readonly ILogger logger;
 
-        public OnlinerApartmentService(IOnlinerConnector onlinerConnector, IQueueWriter<Apartment> queueWriter, ILogger logger)
+        public OnlinerApartmentService(IOnlinerConnector onlinerConnector, ILogger logger)
         {
             this.onlinerConnector = onlinerConnector;
-            this.queueWriter = queueWriter;
             this.logger = logger;
         }
 
@@ -34,7 +30,7 @@ namespace TrackApartments.Onliner
             foreach (var item in results)
             {
                 logger.LogDebug($"Onliner item: {item.Address}, url: {item.Uri}");
-                await queueWriter.WriteAsync(item);
+                //await queueWriter.WriteAsync(item);
             }
 
             return results;

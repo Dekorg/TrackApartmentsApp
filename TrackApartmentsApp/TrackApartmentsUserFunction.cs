@@ -12,7 +12,11 @@ namespace TrackApartmentsApp
     public static class TrackApartmentsUserFunction
     {
         [FunctionName("TrackApartmentsUserFunction")]
-        public static async Task Run([QueueTrigger("newqueueapartments", Connection = "QueueConnectionString")] Apartment apartment, ILogger log, ExecutionContext context)
+        public static async Task Run(
+            [QueueTrigger("newqueueapartments", Connection = "QueueConnectionString")]
+            Apartment apartment,
+            ILogger log,
+            ExecutionContext context)
         {
             log.LogDebug($"{nameof(TrackApartmentsUserFunction)} has started.");
 

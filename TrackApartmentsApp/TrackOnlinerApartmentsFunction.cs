@@ -6,6 +6,7 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TrackApartments.Contracts.Models;
 using TrackApartments.Onliner;
 using TrackApartments.Onliner.Infrastructure.Configuration;
 
@@ -14,13 +15,17 @@ namespace TrackApartmentsApp
     public static class TrackOnlinerApartmentsFunction
     {
         [FunctionName("TrackOnlinerApartmentsFunction")]
-        public static async Task<ActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]HttpRequest req, ILogger log, ExecutionContext context)
+        public static async Task<ActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]HttpRequest req,
+            ILogger log,
+            ExecutionContext context,
+            [Queue("queueapartments", Connection = "QueueConnectionString")] ICollector<Apartment> queueItems)
         {
             log.LogDebug($"{nameof(TrackOnlinerApartmentsFunction)} has started.");
 
             string url = req.Query["url"];
 
-            if (string.IsNullOrEmpty(url))
+            if (String.IsNullOrEmpty(url))
             {
                 return new BadRequestObjectResult("Please, pass an url on the query string.");
             }
@@ -34,6 +39,7 @@ namespace TrackApartmentsApp
                 var app = (OnlinerApartmentService)host.Services.GetService(typeof(OnlinerApartmentService));
 
                 var result = await app.GetAppartments(url);
+                result.ForEach(queueItems.Add);
 
                 return new OkObjectResult(result);
             }

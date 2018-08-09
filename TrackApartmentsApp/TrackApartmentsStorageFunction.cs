@@ -12,7 +12,11 @@ namespace TrackApartmentsApp
     public static class TrackApartmentsStorageFunction
     {
         [FunctionName("TrackApartmentsStorageFunction")]
-        public static async Task Run([QueueTrigger("queueapartments", Connection = "QueueConnectionString")]Apartment flat, ILogger log, ExecutionContext context)
+        public static async Task Run(
+            [QueueTrigger("queueapartments", Connection = "QueueConnectionString")]Apartment flat,
+            ILogger log,
+            ExecutionContext context,
+            [Queue("newqueueapartments", Connection = "QueueConnectionString")] ICollector<Apartment> queueItems)
         {
             log.LogDebug($"{nameof(TrackApartmentsStorageFunction)} has started.", flat);
 
@@ -24,7 +28,10 @@ namespace TrackApartmentsApp
 
                 var app = (StorageApartmentService)host.Services.GetService(typeof(StorageApartmentService));
 
-                await app.SaveIfNewItemAsync(flat);
+                if (await app.IsNewItemAsync(flat))
+                {
+                    queueItems.Add(flat);
+                }
             }
             catch (Exception ex)
             {

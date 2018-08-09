@@ -19,7 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1B0633
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackApartments.Core", "TrackApartments.Core\TrackApartments.Core.csproj", "{6979D3F5-9EDE-45B1-94AA-5C4D3A724AED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackApartments.User", "TrackApartments.User\TrackApartments.User.csproj", "{7FAB0C97-6BCF-4EA2-86C4-E3A2B31DAF2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackApartments.User", "TrackApartments.User\TrackApartments.User.csproj", "{7FAB0C97-6BCF-4EA2-86C4-E3A2B31DAF2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5973F0DB-8732-495D-97BD-FFE0E68B3765}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackApartments.Storage.Tests", "TrackApartments.Storage.Tests\TrackApartments.Storage.Tests.csproj", "{2515FD24-5E86-4197-BF0A-ECBF7806D033}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +59,10 @@ Global
 		{7FAB0C97-6BCF-4EA2-86C4-E3A2B31DAF2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FAB0C97-6BCF-4EA2-86C4-E3A2B31DAF2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FAB0C97-6BCF-4EA2-86C4-E3A2B31DAF2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2515FD24-5E86-4197-BF0A-ECBF7806D033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2515FD24-5E86-4197-BF0A-ECBF7806D033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2515FD24-5E86-4197-BF0A-ECBF7806D033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2515FD24-5E86-4197-BF0A-ECBF7806D033}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +74,7 @@ Global
 		{7B20EB55-BA77-4410-895A-B50F0179F169} = {8A2070FD-071F-4FD9-A4E9-BF2D44E56DD7}
 		{6979D3F5-9EDE-45B1-94AA-5C4D3A724AED} = {1B063365-0E33-4CED-992F-22547A2389DB}
 		{7FAB0C97-6BCF-4EA2-86C4-E3A2B31DAF2E} = {8A2070FD-071F-4FD9-A4E9-BF2D44E56DD7}
+		{2515FD24-5E86-4197-BF0A-ECBF7806D033} = {5973F0DB-8732-495D-97BD-FFE0E68B3765}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {627D8A49-77DE-435C-ACE0-4BC4DD7F91C3}

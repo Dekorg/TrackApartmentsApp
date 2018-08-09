@@ -5,7 +5,7 @@ using TrackApartments.Contracts.Models;
 using TrackApartments.Storage.Domain.Contracts;
 using TrackApartments.Storage.Settings;
 
-namespace TrackApartments.Storage
+namespace TrackApartments.Storage.Domain
 {
     public sealed class StorageConnector : IStorageConnector
     {
