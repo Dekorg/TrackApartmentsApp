@@ -16,7 +16,7 @@ namespace TrackApartmentsApp
     {
         [FunctionName("TrackOnlinerApartmentsFunction")]
         public static async Task<ActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)]HttpRequest req,
             ILogger log,
             ExecutionContext context,
             [Queue("queueapartments", Connection = "QueueConnectionString")] ICollector<Apartment> queueItems)
