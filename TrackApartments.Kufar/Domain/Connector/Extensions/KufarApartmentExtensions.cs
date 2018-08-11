@@ -19,6 +19,11 @@ namespace TrackApartments.Kufar.Domain.Connector.Extensions
 
             if (!String.IsNullOrEmpty(detailsPartial.Phone))
             {
+                if (!detailsPartial.Phone.StartsWith("+"))
+                {
+                    detailsPartial.Phone = "+" + detailsPartial;
+                }
+
                 appartment.Phones = new List<string> { detailsPartial.Phone };
             }
 
