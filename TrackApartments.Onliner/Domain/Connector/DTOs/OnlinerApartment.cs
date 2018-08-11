@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace TrackApartments.Onliner.Domain.Connector.DTOs
 {
-    public class OnlinerApartment
+    internal class OnlinerApartment
     {
         [JsonProperty("id")]
         public int Id { get; set; }

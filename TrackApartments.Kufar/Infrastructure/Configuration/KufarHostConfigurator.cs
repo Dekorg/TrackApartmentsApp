@@ -5,16 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TrackApartments.Contracts;
-using TrackApartments.Contracts.PageParser;
 using TrackApartments.Core.Load;
 using TrackApartments.Core.Secrets;
-using TrackApartments.Onliner.Domain.Connector;
-using TrackApartments.Onliner.Domain.PageParsers.Onliner;
-using TrackApartments.Onliner.Settings;
+using TrackApartments.Kufar.Domain.Connector;
+using TrackApartments.Kufar.Settings;
 
-namespace TrackApartments.Onliner.Infrastructure.Configuration
+namespace TrackApartments.Kufar.Infrastructure.Configuration
 {
-    public class OnlinerHostConfigurator
+    public class KufarHostConfigurator
     {
         public IHost BuildHost(ExecutionContext context, ILogger log)
         {
@@ -36,9 +34,8 @@ namespace TrackApartments.Onliner.Infrastructure.Configuration
                     services.AddHttpClient<ILoadEngine, LoadEngine>();
 
                     services.AddScoped<IResponseParser, ResponseParser>();
-                    services.AddScoped<IOnlinerPageParser, OnlinerPageParser>();
-                    services.AddScoped<IOnlinerConnector, OnlinerConnector>();
-                    services.AddScoped<OnlinerApartmentService>();
+                    services.AddScoped<IKufarConnector, KufarConnector>();
+                    services.AddScoped<KufarApartmentService>();
 
                     services.AddSingleton(log);
 
@@ -48,10 +45,10 @@ namespace TrackApartments.Onliner.Infrastructure.Configuration
             return builder.Build();
         }
 
-
         private static async Task LoadSecretSettings(QueueStorageSettings queueStorageSettings, AppSettings appSettings)
         {
             var store = new SecretsStore(appSettings.KeyVaultBaseUrl);
+
             queueStorageSettings.ConnectionString = await store.GetOrLoadSettingAsync(queueStorageSettings.ConnectionString);
         }
 
