@@ -30,7 +30,6 @@ namespace TrackApartments.Onliner
             foreach (var item in results)
             {
                 logger.LogDebug($"Onliner item: {item.Address}, url: {item.Uri}");
-                //await queueWriter.WriteAsync(item);
             }
 
             return results;

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using TrackApartments.Contracts.Enums;
 using TrackApartments.Contracts.Models;
 using TrackApartments.Onliner.Domain.Connector.DTOs;
 
 namespace TrackApartments.Onliner.Domain.Connector.Extensions
 {
-    public static class OnlinerApartmentExtensions
+    internal static class OnlinerApartmentExtensions
     {
         public static Apartment ToAppartment(this OnlinerApartment onlinerAppartment)
         {
@@ -23,6 +24,7 @@ namespace TrackApartments.Onliner.Domain.Connector.Extensions
             appartment.Price = onlinerAppartment.Price.Converted.USD.Amount;
             appartment.Rooms = Int32.Parse(Regex.Match(onlinerAppartment.RentType, @"\d+").Value);
             appartment.Uri = new Uri(onlinerAppartment.Url);
+            appartment.Source = DataSource.Onliner;
 
             return appartment;
         }

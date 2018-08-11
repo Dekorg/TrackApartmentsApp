@@ -4,6 +4,9 @@
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.SendGrid" Version="3.0.0-beta5" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Twilio" Version="3.0.0-beta5" />
@@ -21,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TrackApartments.Contracts\TrackApartments.Contracts.csproj" />
     <ProjectReference Include="..\TrackApartments.Core\TrackApartments.Core.csproj" />
+    <ProjectReference Include="..\TrackApartments.Kufar\TrackApartments.Kufar.csproj" />
     <ProjectReference Include="..\TrackApartments.Onliner\TrackApartments.Onliner.csproj" />
     <ProjectReference Include="..\TrackApartments.Storage\TrackApartments.Storage.csproj" />
     <ProjectReference Include="..\TrackApartments.User\TrackApartments.User.csproj" />

@@ -2,7 +2,7 @@
 
 namespace TrackApartments.Onliner.Domain.Connector.DTOs
 {
-    public class OnlinerPrice
+    internal class OnlinerPrice
     {
         [JsonProperty("amount")]
         public float Amount { get; set; }

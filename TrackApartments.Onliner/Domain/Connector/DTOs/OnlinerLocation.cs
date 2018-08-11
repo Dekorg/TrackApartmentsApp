@@ -2,7 +2,7 @@
 
 namespace TrackApartments.Onliner.Domain.Connector.DTOs
 {
-    public class OnlinerLocation
+    internal class OnlinerLocation
     {
         [JsonProperty("address")]
         public string Address { get; set; }

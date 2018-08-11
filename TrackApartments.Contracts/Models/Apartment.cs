@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TrackApartments.Contracts.Enums;
 
 namespace TrackApartments.Contracts.Models
 {
@@ -21,6 +22,8 @@ namespace TrackApartments.Contracts.Models
         public int Rooms { get; set; }
 
         public Uri Uri { get; set; }
+
+        public DataSource Source { get; set; }
 
         public override string ToString()
         {

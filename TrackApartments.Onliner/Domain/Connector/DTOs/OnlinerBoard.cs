@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace TrackApartments.Onliner.Domain.Connector.DTOs
 {
-    public class OnlinerBoard
+    internal class OnlinerBoard
     {
         [JsonProperty("apartments")]
-        public List<OnlinerApartment> Appartments { get; set; }
+        public List<OnlinerApartment> Apartments { get; set; }
     }
 }

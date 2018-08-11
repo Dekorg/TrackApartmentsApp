@@ -21,9 +21,11 @@ namespace TrackApartmentsApp
                 .AddEnvironmentVariables()
                 .Build();
 
-            var url = config.GetSection("SourceSettings:OnlinerURL").Value;
+            var onlinerURL = config.GetSection("SourceSettings:OnlinerURL").Value;
+            var kufarURL = config.GetSection("SourceSettings:KufarURL").Value;
 
-            await CachedClient.GetAsync(url);
+            //CachedClient.GetAsync(onlinerURL);
+            await CachedClient.GetAsync(kufarURL);
         }
     }
 }
