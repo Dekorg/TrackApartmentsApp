@@ -9,7 +9,7 @@
       }
     },
     "aggregator": {
-      "batchSize": 1000,
+      "batchSize": 100,
       "flushTimeout": "00:00:30"
     }
   },

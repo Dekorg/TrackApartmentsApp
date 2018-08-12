@@ -8,16 +8,16 @@ namespace TrackApartments.Kufar.Domain.Connector.Extensions
 {
     internal static class KufarApartmentExtensions
     {
-        public static Apartment ToAppartment(this KufarApartment kufarAppartment, KufarDetailsPartial detailsPartial)
+        public static Apartment ToAppartment(this KufarApartment kufarAppartment, KufarDetailsPartial detailsPartial = null)
         {
             var appartment = new Apartment
             {
                 Address = kufarAppartment.Address,
                 Created = kufarAppartment.ListTime,
-                IsCreatedByOwner = detailsPartial.IsCompanyAd == 0
+                IsCreatedByOwner = detailsPartial?.IsCompanyAd == 0
             };
 
-            if (!String.IsNullOrEmpty(detailsPartial.Phone))
+            if (!String.IsNullOrEmpty(detailsPartial?.Phone))
             {
                 if (!detailsPartial.Phone.StartsWith("+"))
                 {
