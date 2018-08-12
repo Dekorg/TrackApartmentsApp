@@ -13,7 +13,6 @@ using TrackApartments.User.Domain.Sinks.Abstract;
 using TrackApartments.User.Domain.Sinks.Conditions;
 using TrackApartments.User.Domain.Sinks.Conditions.Interfaces;
 using TrackApartments.User.Settings;
-using TrackApartmentsApp.Domain.Sinks.Abstract;
 
 namespace TrackApartments.User.Infrastructure.Configuration
 {
