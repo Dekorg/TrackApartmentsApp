@@ -7,7 +7,7 @@ namespace TrackApartments.Contracts.PageParser.Abstract
     {
         public virtual IEnumerable<string> FindByRegex(string content, Regex regex)
         {
-            var results = regex.Matches(content);
+            MatchCollection results = regex.Matches(content);
 
             foreach (Match item in results)
             {

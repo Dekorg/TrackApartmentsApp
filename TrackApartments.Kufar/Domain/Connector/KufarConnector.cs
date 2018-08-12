@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TrackApartments.Contracts;
@@ -23,7 +24,7 @@ namespace TrackApartments.Kufar.Domain.Connector
 
         public async Task<List<Apartment>> GetAsync(string url)
         {
-            var data = await engine.LoadAsync(url);
+            HttpResponseMessage data = await engine.LoadAsync(url);
             var kufarApartments = await parser.ParseAsync<KufarBoard>(data);
 
             var results = new List<Apartment>();
