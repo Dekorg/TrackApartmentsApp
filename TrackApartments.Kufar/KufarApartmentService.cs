@@ -25,7 +25,7 @@ namespace TrackApartments.Kufar
 
         private async Task<List<Apartment>> GetKufarApartments(string url)
         {
-            var results = await kufarConnector.GetAsync(url);
+            List<Apartment> results = await kufarConnector.GetAsync(url);
 
             foreach (var item in results)
             {

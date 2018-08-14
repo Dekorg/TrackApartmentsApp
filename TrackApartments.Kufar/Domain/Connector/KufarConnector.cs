@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using TrackApartments.Contracts;
 using TrackApartments.Contracts.Models;
 using TrackApartments.Kufar.Domain.Connector.DTOs;
@@ -11,16 +13,18 @@ namespace TrackApartments.Kufar.Domain.Connector
     {
         private readonly ILoadEngine engine;
         private readonly IResponseParser parser;
+        private readonly ILogger logger;
 
-        public KufarConnector(ILoadEngine engine, IResponseParser parser)
+        public KufarConnector(ILoadEngine engine, IResponseParser parser, ILogger logger)
         {
             this.engine = engine;
             this.parser = parser;
+            this.logger = logger;
         }
 
         public async Task<List<Apartment>> GetAsync(string url)
         {
-            var data = await engine.LoadAsync(url);
+            HttpResponseMessage data = await engine.LoadAsync(url);
             var kufarApartments = await parser.ParseAsync<KufarBoard>(data);
 
             var results = new List<Apartment>();
@@ -31,7 +35,12 @@ namespace TrackApartments.Kufar.Domain.Connector
                 var detailsData = await engine.LoadAsync(detailsUrl);
                 var details = await parser.ParseAsync<KufarDetails>(detailsData);
 
-                results.Add(flat.ToAppartment(details.Result));
+                if (details == null)
+                {
+                    logger.LogWarning($"Details are abscent for kufar item: {flat.Address}, url: {flat.Url}");
+                }
+
+                results.Add(flat.ToAppartment(details?.Result));
             }
 
             return results;

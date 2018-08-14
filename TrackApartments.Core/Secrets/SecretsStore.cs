@@ -23,7 +23,7 @@ namespace TrackApartments.Core.Secrets
 
         public async Task<string> GetOrLoadSettingAsync(string secretId)
         {
-            string value = String.Empty;
+            string value;
 
             if (CachedDictionary.ContainsKey(secretId))
             {

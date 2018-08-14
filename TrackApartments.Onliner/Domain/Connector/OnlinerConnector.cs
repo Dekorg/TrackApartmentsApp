@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using TrackApartments.Contracts;
 using TrackApartments.Contracts.Models;
@@ -25,9 +26,9 @@ namespace TrackApartments.Onliner.Domain.Connector
 
         public async Task<List<Apartment>> GetAsync(string url)
         {
-            var data = await engine.LoadAsync(url);
+            HttpResponseMessage data = await engine.LoadAsync(url);
             var parsed = await parser.ParseAsync<OnlinerBoard>(data);
-            var appartments = parsed.Apartments.Select(x => x.ToAppartment()).ToList();
+            List<Apartment> appartments = parsed.Apartments.Select(x => x.ToAppartment()).ToList();
 
             foreach (var flat in appartments)
             {

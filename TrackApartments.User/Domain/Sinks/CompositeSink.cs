@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using TrackApartments.Contracts.Models;
 using TrackApartments.User.Domain.Sinks.Abstract;
-using TrackApartmentsApp.Domain.Sinks.Abstract;
 
 namespace TrackApartments.User.Domain.Sinks
 {

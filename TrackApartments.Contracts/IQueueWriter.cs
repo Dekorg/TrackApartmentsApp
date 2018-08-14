@@ -2,7 +2,7 @@
 
 namespace TrackApartments.Contracts
 {
-    public interface IQueueWriter<T>
+    public interface IQueueWriter<in T>
     {
         Task WriteAsync(T apartment);
     }

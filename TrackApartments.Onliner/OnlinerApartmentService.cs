@@ -25,7 +25,7 @@ namespace TrackApartments.Onliner
 
         private async Task<List<Apartment>> GetOnlinerApartments(string url)
         {
-            var results = await onlinerConnector.GetAsync(url);
+            List<Apartment> results = await onlinerConnector.GetAsync(url);
 
             foreach (var item in results)
             {
