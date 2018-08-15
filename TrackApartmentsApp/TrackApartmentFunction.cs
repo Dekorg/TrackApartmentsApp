@@ -1,9 +1,9 @@
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using ExecutionContext = Microsoft.Azure.WebJobs.ExecutionContext;
 
 namespace TrackApartmentsApp
 {
