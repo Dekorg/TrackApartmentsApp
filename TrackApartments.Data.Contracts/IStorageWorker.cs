@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace TrackApartments.Storage.Domain.Contracts
+namespace TrackApartments.Data.Contracts
 {
     public interface IStorageWorker
     {

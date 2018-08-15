@@ -22,8 +22,10 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\TrackApartments.Auth\TrackApartments.Auth.csproj" />
     <ProjectReference Include="..\TrackApartments.Contracts\TrackApartments.Contracts.csproj" />
     <ProjectReference Include="..\TrackApartments.Core\TrackApartments.Core.csproj" />
+    <ProjectReference Include="..\TrackApartments.Get\TrackApartments.Get.csproj" />
     <ProjectReference Include="..\TrackApartments.Kufar\TrackApartments.Kufar.csproj" />
     <ProjectReference Include="..\TrackApartments.Onliner\TrackApartments.Onliner.csproj" />
     <ProjectReference Include="..\TrackApartments.Storage\TrackApartments.Storage.csproj" />

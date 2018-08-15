@@ -14,4 +14,8 @@
     <ProjectReference Include="..\TrackApartments.Contracts\TrackApartments.Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Settings\" />
+  </ItemGroup>
+
 </Project>

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using TrackApartments.Contracts.Models;
 using TrackApartments.Kufar;
 using TrackApartments.Kufar.Infrastructure.Configuration;
+using ExecutionContext = Microsoft.Azure.WebJobs.ExecutionContext;
 
 namespace TrackApartmentsApp
 {

@@ -19,28 +19,28 @@ namespace TrackApartments.User
         {
             var order = new Order
             {
-                Apartment = apartment
-            };
-
-            order.UserInfo = new UserInfo();
-            order.UserInfo.UserName = "Vitaly Bibikov";
-            order.UserInfo.Phone = "+375291602219";
-            order.UserInfo.Email = "evilavenger@yandex.ru";
-
-            order.SinkSettings = new UserSinkSettings();
-
-            order.SinkSettings.EmailSettings = new SinkSettings
-            {
-                DesiredPriceBorder = 400,
-                IsNewPeriod = 1,
-                IsOnlyOwner = false
-            };
-
-            order.SinkSettings.SmsSettings = new SinkSettings
-            {
-                DesiredPriceBorder = 300,
-                IsNewPeriod = 1,
-                IsOnlyOwner = true
+                Apartment = apartment,
+                UserInfo = new UserInfo
+                {
+                    UserName = "Vitaly Bibikov",
+                    Phone = "+375291602219",
+                    Email = "evilavenger@yandex.ru"
+                },
+                SinkSettings = new UserSinkSettings
+                {
+                    EmailSettings = new SinkSettings
+                    {
+                        DesiredPriceBorder = 400,
+                        IsNewPeriod = 1,
+                        IsOnlyOwner = false
+                    },
+                    SmsSettings = new SinkSettings
+                    {
+                        DesiredPriceBorder = 300,
+                        IsNewPeriod = 1,
+                        IsOnlyOwner = true
+                    }
+                }
             };
 
             await sink.WriteAsync(order);

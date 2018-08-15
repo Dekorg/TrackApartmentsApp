@@ -1,10 +1,12 @@
 ﻿using System;
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace TrackApartments.Storage.Domain.Storage.Entity
+namespace TrackApartments.Data.Contracts.Storage.Entity
 {
     public class ApartmentEntity : TableEntity
     {
+        public Guid UniqueId { get; set; }
+
         public string Address { get; set; }
 
         public DateTime? Created { get; set; }

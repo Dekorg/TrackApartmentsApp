@@ -1,4 +1,4 @@
-﻿namespace TrackApartments.Storage.Settings
+﻿namespace TrackApartments.Data.Contracts.Settings
 {
     public class StorageSettings
     {

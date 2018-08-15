@@ -1,21 +1,22 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using TrackApartments.Contracts.Models;
 
-namespace TrackApartments.Storage.Domain.Storage.Entity.Extensions
+namespace TrackApartments.Data.Contracts.Storage.Entity.Extensions
 {
     public static class ApartmentExtensions
     {
-        public static ApartmentEntity ToEntity(this Apartment apartment, string partitionKey, string rowKey)
+        public static ApartmentEntity ToEntity(this Apartment apartment, string partitionKey, Guid rowKey)
         {
             var entity = new ApartmentEntity();
-
+            entity.UniqueId = entity.UniqueId == Guid.Empty ? rowKey : apartment.UniqueId;
             entity.Address = apartment.Address;
             entity.Created = apartment.Created;
             entity.Updated = apartment.Updated;
             entity.IsCreatedByOwner = apartment.IsCreatedByOwner;
-            entity.Price = apartment.Price.ToString();
+            entity.Price = apartment.Price.ToString(CultureInfo.InvariantCulture);
             entity.Rooms = apartment.Rooms;
             entity.Uri = apartment.Uri.AbsoluteUri;
 
@@ -28,7 +29,7 @@ namespace TrackApartments.Storage.Domain.Storage.Entity.Extensions
 
             entity.Phones = sb.ToString();
             entity.PartitionKey = partitionKey;
-            entity.RowKey = rowKey;
+            entity.RowKey = rowKey.ToString();
 
             return entity;
         }
@@ -37,6 +38,7 @@ namespace TrackApartments.Storage.Domain.Storage.Entity.Extensions
         {
             var apartment = new Apartment
             {
+                UniqueId = entity.UniqueId,
                 Address = entity.Address,
                 Created = entity.Created ?? DateTime.MinValue,
                 Updated = entity.Updated ?? DateTime.MinValue,
