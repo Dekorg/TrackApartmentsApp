@@ -39,12 +39,15 @@ namespace TrackApartments.Contracts.Models
 
             var item = (Apartment)other;
             return Address == item.Address &&
-                   Uri == item.Uri;
+                   (Uri == item.Uri || (Price.Equals(item.Price) && Rooms == item.Rooms));
         }
 
         public override int GetHashCode()
         {
-            return this.Address.GetHashCode() ^ Uri.GetHashCode();
+            return Address.GetHashCode() ^
+                Uri.GetHashCode() ^
+                Rooms.GetHashCode() ^
+                Price.GetHashCode();
         }
     }
 }
