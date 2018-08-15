@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TrackApartments.Contracts.Models;
-using TrackApartments.Storage.Domain.Contracts;
-using TrackApartments.Storage.Domain.Storage.Entity.Extensions;
+using TrackApartments.Data.Contracts;
+using TrackApartments.Data.Contracts.Storage.Entity.Extensions;
 
-namespace TrackApartments.Storage.Domain.Storage
+namespace TrackApartments.Data.Repository
 {
     public sealed class StorageAppartmentWriteRepository : IStorageWriteRepository<Apartment>
     {
@@ -17,13 +17,13 @@ namespace TrackApartments.Storage.Domain.Storage
 
         public async Task SaveAsync(string partitionKey, Apartment item)
         {
-            var entity = item.ToEntity(partitionKey, Guid.NewGuid().ToString());
+            var entity = item.ToEntity(partitionKey, Guid.NewGuid());
             await worker.SaveAsync(entity);
         }
 
         public async Task DeleteAsync(string partitionKey, Apartment item)
         {
-            var entity = item.ToEntity(partitionKey, Guid.NewGuid().ToString());
+            var entity = item.ToEntity(partitionKey, Guid.NewGuid());
             await worker.DeleteAsync(entity);
         }
     }

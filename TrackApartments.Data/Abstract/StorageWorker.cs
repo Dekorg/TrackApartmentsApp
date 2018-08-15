@@ -3,10 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
-using TrackApartments.Storage.Domain.Contracts;
-using TrackApartments.Storage.Settings;
+using TrackApartments.Data.Contracts;
+using TrackApartments.Data.Contracts.Settings;
 
-namespace TrackApartments.Storage.Domain.Storage.Abstract
+namespace TrackApartments.Data.Abstract
 {
     public class StorageWorker : IStorageWorker
     {
@@ -19,7 +19,7 @@ namespace TrackApartments.Storage.Domain.Storage.Abstract
             table = tableClient.GetTableReference(settings.TableName);
 
             //todo rewrite to CosmosDb. Currently in preview.
-            var t = table.CreateIfNotExistsAsync().GetAwaiter().GetResult();
+            table.CreateIfNotExistsAsync().GetAwaiter().GetResult();
         }
 
         public async Task SaveAsync<T>(T item) where T : ITableEntity, new()

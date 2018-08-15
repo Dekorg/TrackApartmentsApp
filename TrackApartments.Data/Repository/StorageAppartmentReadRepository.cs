@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using TrackApartments.Contracts.Models;
-using TrackApartments.Storage.Domain.Contracts;
-using TrackApartments.Storage.Domain.Storage.Entity;
-using TrackApartments.Storage.Domain.Storage.Entity.Extensions;
+using TrackApartments.Data.Contracts;
+using TrackApartments.Data.Contracts.Storage.Entity;
+using TrackApartments.Data.Contracts.Storage.Entity.Extensions;
 
-namespace TrackApartments.Storage.Domain.Storage
+namespace TrackApartments.Data.Repository
 {
     public sealed class StorageAppartmentReadRepository : IStorageReadRepository<Apartment>
     {

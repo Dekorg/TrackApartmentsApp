@@ -7,13 +7,15 @@ namespace TrackApartments.Contracts.Models
 {
     public class Apartment
     {
+        public Guid UniqueId { get; set; }
+
         public string Address { get; set; }
 
         public DateTime Created { get; set; }
 
         public DateTime Updated { get; set; }
 
-        public List<string> Phones { get; set; } = new List<string>();
+        public List<string> Phones { get; set; } = new List<string>(2);
 
         public bool IsCreatedByOwner { get; set; }
 

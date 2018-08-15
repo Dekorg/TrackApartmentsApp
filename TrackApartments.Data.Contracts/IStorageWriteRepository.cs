@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace TrackApartments.Storage.Domain.Contracts
+namespace TrackApartments.Data.Contracts
 {
     public interface IStorageWriteRepository<in T>
     {

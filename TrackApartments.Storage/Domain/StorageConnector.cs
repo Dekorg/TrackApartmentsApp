@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TrackApartments.Contracts.Models;
+using TrackApartments.Data.Contracts;
+using TrackApartments.Data.Contracts.Settings;
 using TrackApartments.Storage.Domain.Contracts;
-using TrackApartments.Storage.Settings;
 
 namespace TrackApartments.Storage.Domain
 {
@@ -27,7 +28,7 @@ namespace TrackApartments.Storage.Domain
 
         public async Task<List<Apartment>> GetSavedItemsAsync()
         {
-            var savedItems = await reader.LoadAsync(settings.PartitionKey); // todo: to hashset
+            var savedItems = await reader.LoadAsync(settings.PartitionKey);
             return savedItems;
         }
 

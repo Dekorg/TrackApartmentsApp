@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using TrackApartments.Contracts.Enums;
 using TrackApartments.Contracts.Models;
+using TrackApartments.Contracts.Regexps;
 using TrackApartments.Kufar.Domain.Connector.DTOs;
 
 namespace TrackApartments.Kufar.Domain.Connector.Extensions
@@ -21,10 +23,13 @@ namespace TrackApartments.Kufar.Domain.Connector.Extensions
             {
                 if (!detailsPartial.Phone.StartsWith("+"))
                 {
-                    detailsPartial.Phone = "+" + detailsPartial;
+                    detailsPartial.Phone = "+" + detailsPartial.Phone;
                 }
 
-                appartment.Phones = new List<string> { detailsPartial.Phone };
+                if (new PhoneRegex().Expression.IsMatch(detailsPartial.Phone))
+                {
+                    appartment.Phones = new List<string> { detailsPartial.Phone };
+                }
             }
 
             if (Single.TryParse(kufarAppartment.PriceUSD, out float price))
