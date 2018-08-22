@@ -14,7 +14,6 @@ namespace TrackApartmentsApp
     public static class TrackApartmentsGetFunction
     {
         [FunctionName("TrackApartmentsGetFunction")]
-        //[ClaimRequirement(MyClaimTypes.Permission, "CanReadResource")]
         public static async Task<ActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]HttpRequest req, ILogger log, ExecutionContext context)
         {
