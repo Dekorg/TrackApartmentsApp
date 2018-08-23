@@ -12,6 +12,8 @@ namespace TrackApartments.Core.Secrets
         private readonly string keyVaultUrl;
         private static readonly Dictionary<string, string> CachedDictionary = new Dictionary<string, string>();
 
+        //This client is located in a shared lib and is static 
+        //to share it between functions and between instances of those functions.
         private static readonly HttpClient SharedClient = new HttpClient();
 
         public SecretsStore(string keyVaultUrl)
