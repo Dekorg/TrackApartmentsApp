@@ -39,13 +39,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionsApi", "FunctionsAp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApartmentsFunction", "ApartmentsFunction", "{DB31C091-97E3-47DC-A87B-B983063B1ED1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackApartments.Get", "TrackApartments.Get\TrackApartments.Get.csproj", "{916215C8-1CC2-4544-BA1F-10BF61C37B14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackApartments.Get", "TrackApartments.Get\TrackApartments.Get.csproj", "{916215C8-1CC2-4544-BA1F-10BF61C37B14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackApartments.Data", "TrackApartments.Data\TrackApartments.Data.csproj", "{12AD6DC9-0E2A-4684-B945-73E4241DB674}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackApartments.Data", "TrackApartments.Data\TrackApartments.Data.csproj", "{12AD6DC9-0E2A-4684-B945-73E4241DB674}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackApartments.Data.Contracts", "TrackApartments.Data.Contracts\TrackApartments.Data.Contracts.csproj", "{CA6D3170-9FA4-4891-AA25-987DD9D2E149}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackApartments.Data.Contracts", "TrackApartments.Data.Contracts\TrackApartments.Data.Contracts.csproj", "{CA6D3170-9FA4-4891-AA25-987DD9D2E149}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackApartments.Auth", "TrackApartments.Auth\TrackApartments.Auth.csproj", "{7F13D68D-5AD0-4F73-AD61-7709020E70A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackApartments.Auth", "TrackApartments.Auth\TrackApartments.Auth.csproj", "{7F13D68D-5AD0-4F73-AD61-7709020E70A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -126,7 +126,7 @@ Global
 		{916215C8-1CC2-4544-BA1F-10BF61C37B14} = {DB31C091-97E3-47DC-A87B-B983063B1ED1}
 		{12AD6DC9-0E2A-4684-B945-73E4241DB674} = {1B063365-0E33-4CED-992F-22547A2389DB}
 		{CA6D3170-9FA4-4891-AA25-987DD9D2E149} = {1B063365-0E33-4CED-992F-22547A2389DB}
-		{7F13D68D-5AD0-4F73-AD61-7709020E70A1} = {DB31C091-97E3-47DC-A87B-B983063B1ED1}
+		{7F13D68D-5AD0-4F73-AD61-7709020E70A1} = {1B063365-0E33-4CED-992F-22547A2389DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {627D8A49-77DE-435C-ACE0-4BC4DD7F91C3}
