@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Settings\**" />
+    <EmbeddedResource Remove="Settings\**" />
+    <None Remove="Settings\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.14" />
     <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.0" />
     <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.0.3" />
@@ -12,10 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TrackApartments.Contracts\TrackApartments.Contracts.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Settings\" />
   </ItemGroup>
 
 </Project>
