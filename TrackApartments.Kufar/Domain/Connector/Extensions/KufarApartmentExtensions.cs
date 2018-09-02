@@ -32,9 +32,9 @@ namespace TrackApartments.Kufar.Domain.Connector.Extensions
                 }
             }
 
-            if (Single.TryParse(kufarAppartment.PriceUSD, out float price))
+            if (Single.TryParse(kufarAppartment.PriceUSD, out float price) && price > 0)
             {
-                appartment.Price = price;
+                appartment.Price = price / 100;
             }
 
             appartment.Rooms = kufarAppartment.Rooms;
