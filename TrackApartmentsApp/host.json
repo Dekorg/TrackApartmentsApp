@@ -1,22 +1,15 @@
 {
-  "logger": {
-    "categoryFilter": {
-      "defaultLevel": "Information",
-      "categoryLevels": {
-        "Host.Results": "Error",
-        "Function": "Error",
-        "Host.Aggregator": "Information"
-      }
+  "version": "2.0",
+
+  "logging": {
+    "logging": {
+      "fileLoggingMode": "debugOnly"
     },
-    "aggregator": {
-      "batchSize": 100,
-      "flushTimeout": "00:00:30"
-    }
-  },
-  "applicationInsights": {
-    "sampling": {
-      "isEnabled": true,
-      "maxTelemetryItemsPerSecond": 5
+    "applicationInsights": {
+      "sampling": {
+        "isEnabled": true,
+        "maxTelemetryItemsPerSecond": 5
+      }
     }
   }
 }
