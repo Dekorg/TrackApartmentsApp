@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackApartments.Data.Contra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackApartments.Auth", "TrackApartments.Auth\TrackApartments.Auth.csproj", "{7F13D68D-5AD0-4F73-AD61-7709020E70A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackApartments.Storage.Delete", "TrackApartments.Storage.Delete\TrackApartments.Storage.Delete.csproj", "{53CDD2DF-B211-4994-9ECD-19AD7F6C3FA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{7F13D68D-5AD0-4F73-AD61-7709020E70A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F13D68D-5AD0-4F73-AD61-7709020E70A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F13D68D-5AD0-4F73-AD61-7709020E70A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53CDD2DF-B211-4994-9ECD-19AD7F6C3FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53CDD2DF-B211-4994-9ECD-19AD7F6C3FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53CDD2DF-B211-4994-9ECD-19AD7F6C3FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53CDD2DF-B211-4994-9ECD-19AD7F6C3FA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,6 +133,7 @@ Global
 		{12AD6DC9-0E2A-4684-B945-73E4241DB674} = {1B063365-0E33-4CED-992F-22547A2389DB}
 		{CA6D3170-9FA4-4891-AA25-987DD9D2E149} = {1B063365-0E33-4CED-992F-22547A2389DB}
 		{7F13D68D-5AD0-4F73-AD61-7709020E70A1} = {1B063365-0E33-4CED-992F-22547A2389DB}
+		{53CDD2DF-B211-4994-9ECD-19AD7F6C3FA3} = {590B4537-9401-40F8-BFE2-90E567D5226C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {627D8A49-77DE-435C-ACE0-4BC4DD7F91C3}

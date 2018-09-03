@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TrackApartments.Contracts.Models;
@@ -8,11 +9,11 @@ using TrackApartments.Data.Contracts.Storage.Entity.Extensions;
 
 namespace TrackApartments.Data.Repository
 {
-    public sealed class StorageAppartmentReadRepository : IStorageReadRepository<Apartment>
+    public sealed class StorageApartmentReadRepository : IStorageReadRepository<Apartment>
     {
         private readonly IStorageWorker worker;
 
-        public StorageAppartmentReadRepository(IStorageWorker worker)
+        public StorageApartmentReadRepository(IStorageWorker worker)
         {
             this.worker = worker;
         }

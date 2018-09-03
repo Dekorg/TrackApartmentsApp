@@ -10,13 +10,13 @@ using TrackApartments.Data.Abstract;
 using TrackApartments.Data.Contracts;
 using TrackApartments.Data.Contracts.Settings;
 using TrackApartments.Data.Repository;
-using TrackApartments.Get.Domain;
-using TrackApartments.Get.Domain.Contracts;
-using TrackApartments.Get.Settings;
+using TrackApartments.Storage.Delete.Domain;
+using TrackApartments.Storage.Delete.Domain.Contracts;
+using TrackApartments.Storage.Delete.Settings;
 
-namespace TrackApartments.Get.Infrastructure.Configuration
+namespace TrackApartments.Storage.Delete.Infrastructure.Configuration
 {
-    public class GetApartmentHostConfigurator
+    public class StorageDeleteHostConfigurator
     {
         public IHost BuildHost(ExecutionContext context, ILogger log)
         {
@@ -28,14 +28,19 @@ namespace TrackApartments.Get.Infrastructure.Configuration
                         .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
                         .AddEnvironmentVariables()
                         .Build();
+
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddOptions();
                     services.AddScoped<IStorageWorker, StorageWorker>();
+
                     services.AddScoped<IStorageReadRepository<Apartment>, StorageApartmentReadRepository>();
+                    services.AddScoped<IStorageWriteRepository<Apartment>, StorageApartmentWriteRepository>();
+                    services.AddScoped<IStorageReadWriteRepository<Apartment>, StorageApartmentReadWriteRepository>();
+
                     services.AddScoped<IStorageConnector, StorageConnector>();
-                    services.AddScoped<GetApartmentService>();
+                    services.AddScoped<StorageDeleteService>();
                     services.AddSingleton(log);
 
                     ConfigureSettings(hostContext, services);
@@ -45,24 +50,28 @@ namespace TrackApartments.Get.Infrastructure.Configuration
         }
 
 
-        private static async Task LoadSecretSettings(StorageSettings storageSettings, AppSettings appSettings)
+        private static async Task LoadSecretSettings(QueueStorageSettings queueStorageSettings, StorageSettings storageSettings, AppSettings appSettings)
         {
             var store = new SecretsStore(appSettings.KeyVaultBaseUrl);
             storageSettings.ConnectionString = await store.GetOrLoadSettingAsync(storageSettings.ConnectionString);
+            queueStorageSettings.ConnectionString = await store.GetOrLoadSettingAsync(queueStorageSettings.ConnectionString);
         }
 
         private static void ConfigureSettings(HostBuilderContext hostContext, IServiceCollection services)
         {
             var storageSettings = new StorageSettings();
+            var queueStorageSettings = new QueueStorageSettings();
 
             var appSettings = new AppSettings();
             hostContext.Configuration.GetSection(nameof(StorageSettings)).Bind(storageSettings);
             hostContext.Configuration.GetSection(nameof(AppSettings)).Bind(appSettings);
+            hostContext.Configuration.GetSection(nameof(QueueStorageSettings)).Bind(queueStorageSettings);
 
-            LoadSecretSettings(storageSettings, appSettings)
+            LoadSecretSettings(queueStorageSettings, storageSettings, appSettings)
                 .GetAwaiter()
                 .GetResult();
 
+            services.AddSingleton(queueStorageSettings);
             services.AddSingleton(storageSettings);
             services.AddSingleton(appSettings);
         }

@@ -2,14 +2,12 @@
 using System.Threading.Tasks;
 using TrackApartments.Contracts.Models;
 
-namespace TrackApartments.Storage.Domain.Contracts
+namespace TrackApartments.Storage.Delete.Domain.Contracts
 {
     public interface IStorageConnector
     {
         Task<List<Apartment>> GetSavedItemsAsync();
 
-        bool IsObsoleteItem(Apartment apartment);
-
-        Task SaveItemAsync(Apartment newItem);
+        Task DeleteObsoleteItemsAsync(List<Apartment> savedItems);
     }
 }
