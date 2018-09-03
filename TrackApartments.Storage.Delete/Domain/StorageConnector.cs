@@ -29,7 +29,7 @@ namespace TrackApartments.Storage.Delete.Domain
 
         public bool IsObsoleteItem(Apartment apartment)
         {
-            return (DateTime.Now - apartment.Created).Days > 30;
+            return (DateTime.Now - apartment.Created).Days > 14;
         }
 
         public async Task<List<Apartment>> GetSavedItemsAsync()

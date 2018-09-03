@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace TrackApartments.Core.Secrets
     public sealed class SecretsStore
     {
         private readonly string keyVaultUrl;
-        private static readonly Dictionary<string, string> CachedDictionary = new Dictionary<string, string>();
+        private static readonly ConcurrentDictionary<string, string> CachedDictionary = new ConcurrentDictionary<string, string>();
 
         //This client is located in a shared lib and is static 
         //to share it between functions and between instances of those functions.
@@ -25,16 +26,10 @@ namespace TrackApartments.Core.Secrets
 
         public async Task<string> GetOrLoadSettingAsync(string secretId)
         {
-            string value;
-
-            if (CachedDictionary.ContainsKey(secretId))
-            {
-                value = CachedDictionary[secretId];
-            }
-            else
+            if (!CachedDictionary.TryGetValue(secretId, out var value))
             {
                 string tableString = (await VaultClient.Value.GetSecretAsync(keyVaultUrl, secretId)).Value;
-                CachedDictionary[secretId] = tableString;
+                CachedDictionary.TryAdd(secretId, tableString);
                 value = tableString;
             }
 
