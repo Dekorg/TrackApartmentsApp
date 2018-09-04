@@ -11,7 +11,10 @@ namespace TrackApartments.User.Domain.Queue
             : base(queueStorageSettings)
         {
             Queue = QueueClient.GetQueueReference(queueStorageSettings.NewOrdersSmsQueueName);
-            Queue.CreateIfNotExistsAsync().GetAwaiter().GetResult();
+            if (!Queue.ExistsAsync().GetAwaiter().GetResult())
+            {
+                Queue.CreateIfNotExistsAsync().GetAwaiter().GetResult();
+            }
         }
     }
 }
