@@ -19,7 +19,10 @@ namespace TrackApartments.Data.Abstract
             table = tableClient.GetTableReference(settings.TableName);
 
             //todo rewrite to CosmosDb. Currently in preview.
-            table.CreateIfNotExistsAsync().GetAwaiter().GetResult();
+            if (!table.ExistsAsync().GetAwaiter().GetResult())
+            {
+                table.CreateIfNotExistsAsync().GetAwaiter().GetResult();
+            }
         }
 
         public async Task SaveAsync<T>(T item) where T : ITableEntity, new()
