@@ -11,7 +11,7 @@ namespace TrackApartmentsApp
     public static class TrackApartmentsDeleteStorageFunction
     {
         [FunctionName("TrackApartmentsDeleteStorageFunction")]
-        public static async Task Run([TimerTrigger("0 */1 * * * *")] TimerInfo myTimer, ILogger log,
+        public static async Task Run([TimerTrigger("0 0 0 * * *")] TimerInfo myTimer, ILogger log,
             ExecutionContext context)
         {
             log.LogDebug($"{nameof(TrackApartmentsDeleteStorageFunction)} has started.");

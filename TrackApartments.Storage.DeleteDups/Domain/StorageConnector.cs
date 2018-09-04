@@ -5,9 +5,9 @@ using Microsoft.Extensions.Logging;
 using TrackApartments.Contracts.Models;
 using TrackApartments.Data.Contracts;
 using TrackApartments.Data.Contracts.Settings;
-using TrackApartments.Storage.Delete.Domain.Contracts;
+using TrackApartments.Storage.DeleteDups.Domain.Contracts;
 
-namespace TrackApartments.Storage.Delete.Domain
+namespace TrackApartments.Storage.DeleteDups.Domain
 {
     public sealed class StorageConnector : IStorageConnector
     {
@@ -27,27 +27,22 @@ namespace TrackApartments.Storage.Delete.Domain
             this.readWriter = readWriter;
         }
 
-        public bool IsObsoleteItem(Apartment apartment)
-        {
-            return (DateTime.Now - apartment.Created).Days > settings.StoreForPeriodInDays;
-        }
-
         public async Task<List<Apartment>> GetSavedItemsAsync()
         {
             var savedItems = await reader.LoadAsync(settings.PartitionKey);
             return savedItems;
         }
 
-        public async Task DeleteObsoleteItemsAsync(List<Apartment> savedItems)
+        public async Task DeleteItems(List<Apartment> savedItems)
         {
             foreach (var item in savedItems)
             {
-                if (item != null && IsObsoleteItem(item))
+                if (item != null)
                 {
                     try
                     {
                         await readWriter.DeleteAsync(settings.PartitionKey, item.UniqueId.ToString());
-                        logger.LogWarning($"Apartment is obsolete and has to be disintegrated: {item.Address} url: {item.Uri}", item);
+                        logger.LogWarning($"Apartment is a duplicate and has to be disintegrated: {item.Address} url: {item.Uri}", item);
                     }
                     catch (Exception ex)
                     {

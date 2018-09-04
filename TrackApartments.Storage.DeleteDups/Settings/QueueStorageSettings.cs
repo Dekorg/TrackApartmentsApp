@@ -1,4 +1,4 @@
-﻿namespace TrackApartments.Storage.Delete.Settings
+﻿namespace TrackApartments.Storage.DeleteDups.Settings
 {
     public class QueueStorageSettings
     {
