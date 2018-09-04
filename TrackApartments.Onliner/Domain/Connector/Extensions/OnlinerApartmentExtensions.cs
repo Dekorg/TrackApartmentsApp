@@ -8,25 +8,29 @@ namespace TrackApartments.Onliner.Domain.Connector.Extensions
 {
     internal static class OnlinerApartmentExtensions
     {
-        public static Apartment ToAppartment(this OnlinerApartment onlinerAppartment)
-        {
-            var appartment = new Apartment();
+        public const int MinimalSupposedLocationNameLength = 3;
 
-            if (String.IsNullOrEmpty(onlinerAppartment.Location.Address) || onlinerAppartment.Location.Address.Length <= 5)
+        public static Apartment ToApartment(this OnlinerApartment onlinerApartment)
+        {
+            var apartment = new Apartment();
+
+            if (String.IsNullOrEmpty(onlinerApartment.Location.Address) ||
+                onlinerApartment.Location.Address.Length <= MinimalSupposedLocationNameLength)
             {
-                onlinerAppartment.Location.Address = onlinerAppartment.Location.UserAddress;
+                onlinerApartment.Location.Address = onlinerApartment.Location.UserAddress;
             }
 
-            appartment.Address = onlinerAppartment.Location.Address;
-            appartment.Created = onlinerAppartment.Created;
-            appartment.Updated = onlinerAppartment.Updated;
-            appartment.IsCreatedByOwner = onlinerAppartment.Contact.IsOwner;
-            appartment.Price = onlinerAppartment.Price.Converted.USD.Amount;
-            appartment.Rooms = Int32.Parse(Regex.Match(onlinerAppartment.RentType, @"\d+").Value);
-            appartment.Uri = new Uri(onlinerAppartment.Url);
-            appartment.Source = DataSource.Onliner;
+            apartment.Address = onlinerApartment.Location.Address;
+            apartment.Created = onlinerApartment.Created;
+            apartment.Updated = onlinerApartment.Updated;
+            apartment.SourceId = onlinerApartment.Id.ToString();
+            apartment.IsCreatedByOwner = onlinerApartment.Contact.IsOwner;
+            apartment.Price = onlinerApartment.Price.Converted.USD.Amount;
+            apartment.Rooms = Int32.Parse(Regex.Match(onlinerApartment.RentType, @"\d+").Value);
+            apartment.Uri = new Uri(onlinerApartment.Url);
+            apartment.Source = DataSource.Onliner;
 
-            return appartment;
+            return apartment;
         }
     }
 }

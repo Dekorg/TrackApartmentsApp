@@ -16,7 +16,6 @@ namespace TrackApartments.Storage.DeleteDups.Domain.Comparers
                 return false;
             }
 
-
             return item1.Uri == item2.Uri &&
                    (item1.Price.Equals(item2.Price) || Math.Abs(item1.Price - item2.Price) < PriceEpsilon);
         }

@@ -28,7 +28,7 @@ namespace TrackApartments.Onliner.Domain.Connector
         {
             HttpResponseMessage data = await engine.LoadAsync(url);
             var parsed = await parser.ParseAsync<OnlinerBoard>(data);
-            List<Apartment> apartments = parsed.Apartments.Select(x => x.ToAppartment()).ToList();
+            List<Apartment> apartments = parsed.Apartments.Select(x => x.ToApartment()).ToList();
 
             foreach (var flat in apartments)
             {
