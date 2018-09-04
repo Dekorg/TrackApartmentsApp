@@ -40,7 +40,7 @@ namespace TrackApartments.Kufar.Domain.Connector
                     logger.LogWarning($"Details are abscent for kufar item: {flat.Address}, url: {flat.Url}");
                 }
 
-                var result = flat.ToAppartment(details?.Result);
+                var result = flat.ToApartment(details?.Result);
 
                 if (details != null && result.Phones.Count == 0)
                 {

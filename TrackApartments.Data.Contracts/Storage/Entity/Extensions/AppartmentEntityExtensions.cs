@@ -38,7 +38,7 @@ namespace TrackApartments.Data.Contracts.Storage.Entity.Extensions
         {
             var apartment = new Apartment
             {
-                UniqueId = entity.UniqueId,
+                UniqueId = entity.UniqueId == Guid.Empty ? Guid.Parse(entity.RowKey) : entity.UniqueId,
                 Address = entity.Address,
                 Created = entity.Created ?? DateTime.MinValue,
                 Updated = entity.Updated ?? DateTime.MinValue,

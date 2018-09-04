@@ -16,9 +16,10 @@ namespace TrackApartments.Core.Load
 
         public virtual async Task<HttpResponseMessage> LoadAsync(string url)
         {
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            return await client.GetAsync(url);
+            var message = new HttpRequestMessage(HttpMethod.Get, url);
+            message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            return await client.SendAsync(message);
         }
     }
 }

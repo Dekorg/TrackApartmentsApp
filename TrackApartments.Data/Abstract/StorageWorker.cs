@@ -44,6 +44,13 @@ namespace TrackApartments.Data.Abstract
             return entities.Where(x => x.PartitionKey == key).ToList();
         }
 
+        public async Task<T> LoadAsync<T>(string partitionKey, string rowKey) where T : ITableEntity, new()
+        {
+            var retrieveOperation = TableOperation.Retrieve<T>(partitionKey, rowKey);
+            TableResult retrievedResult = await table.ExecuteAsync(retrieveOperation);
+            return (T)retrievedResult.Result;
+        }
+
         public async Task DeleteAsync<T>(T item) where T : ITableEntity, new()
         {
             item.ETag = "*";

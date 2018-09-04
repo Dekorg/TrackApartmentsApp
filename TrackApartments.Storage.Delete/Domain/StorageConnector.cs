@@ -5,26 +5,26 @@ using Microsoft.Extensions.Logging;
 using TrackApartments.Contracts.Models;
 using TrackApartments.Data.Contracts;
 using TrackApartments.Data.Contracts.Settings;
-using TrackApartments.Storage.Domain.Contracts;
+using TrackApartments.Storage.Delete.Domain.Contracts;
 
-namespace TrackApartments.Storage.Domain
+namespace TrackApartments.Storage.Delete.Domain
 {
     public sealed class StorageConnector : IStorageConnector
     {
         private readonly StorageSettings settings;
         private readonly IStorageReadRepository<Apartment> reader;
         private readonly ILogger logger;
-        private readonly IStorageWriteRepository<Apartment> writer;
+        private readonly IStorageReadWriteRepository<Apartment> readWriter;
 
         public StorageConnector(StorageSettings settings,
-            IStorageWriteRepository<Apartment> writer,
+            IStorageReadWriteRepository<Apartment> readWriter,
             IStorageReadRepository<Apartment> reader,
             ILogger logger)
         {
             this.settings = settings;
             this.reader = reader;
             this.logger = logger;
-            this.writer = writer;
+            this.readWriter = readWriter;
         }
 
         public bool IsObsoleteItem(Apartment apartment)
@@ -38,9 +38,23 @@ namespace TrackApartments.Storage.Domain
             return savedItems;
         }
 
-        public async Task SaveItemAsync(Apartment newItem)
+        public async Task DeleteObsoleteItemsAsync(List<Apartment> savedItems)
         {
-            await writer.SaveAsync(settings.PartitionKey, newItem);
+            foreach (var item in savedItems)
+            {
+                if (item != null && IsObsoleteItem(item))
+                {
+                    try
+                    {
+                        await readWriter.DeleteAsync(settings.PartitionKey, item.UniqueId.ToString());
+                        logger.LogWarning($"Apartment is obsolete and has to be disintegrated: {item.Address} url: {item.Uri}", item);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogError(ex, $"Failed to delete item : {item.Address}, url: {item.Uri}", item);
+                    }
+                }
+            }
         }
     }
 }

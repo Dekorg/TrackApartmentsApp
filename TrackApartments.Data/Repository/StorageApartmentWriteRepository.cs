@@ -6,11 +6,11 @@ using TrackApartments.Data.Contracts.Storage.Entity.Extensions;
 
 namespace TrackApartments.Data.Repository
 {
-    public sealed class StorageAppartmentWriteRepository : IStorageWriteRepository<Apartment>
+    public sealed class StorageApartmentWriteRepository : IStorageWriteRepository<Apartment>
     {
         private readonly IStorageWorker worker;
 
-        public StorageAppartmentWriteRepository(IStorageWorker worker)
+        public StorageApartmentWriteRepository(IStorageWorker worker)
         {
             this.worker = worker;
         }
@@ -19,12 +19,6 @@ namespace TrackApartments.Data.Repository
         {
             var entity = item.ToEntity(partitionKey, Guid.NewGuid());
             await worker.SaveAsync(entity);
-        }
-
-        public async Task DeleteAsync(string partitionKey, Apartment item)
-        {
-            var entity = item.ToEntity(partitionKey, Guid.NewGuid());
-            await worker.DeleteAsync(entity);
         }
     }
 }

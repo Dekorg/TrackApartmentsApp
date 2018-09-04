@@ -28,9 +28,9 @@ namespace TrackApartments.Onliner.Domain.Connector
         {
             HttpResponseMessage data = await engine.LoadAsync(url);
             var parsed = await parser.ParseAsync<OnlinerBoard>(data);
-            List<Apartment> appartments = parsed.Apartments.Select(x => x.ToAppartment()).ToList();
+            List<Apartment> apartments = parsed.Apartments.Select(x => x.ToApartment()).ToList();
 
-            foreach (var flat in appartments)
+            foreach (var flat in apartments)
             {
                 var response = await engine.LoadAsync(flat.Uri.AbsoluteUri);
                 var content = await parser.GetContentAsync(response);
@@ -38,7 +38,7 @@ namespace TrackApartments.Onliner.Domain.Connector
                 flat.Phones = pageParser.FindByRegex(content, new PhoneRegex().Expression).ToList();
             }
 
-            return appartments;
+            return apartments;
         }
     }
 }

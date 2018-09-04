@@ -10,12 +10,12 @@ namespace TrackApartments.Kufar.Domain.Connector.Extensions
 {
     internal static class KufarApartmentExtensions
     {
-        public static Apartment ToAppartment(this KufarApartment kufarAppartment, KufarDetailsPartial detailsPartial = null)
+        public static Apartment ToApartment(this KufarApartment kufarApartment, KufarDetailsPartial detailsPartial = null)
         {
-            var appartment = new Apartment
+            var apartment = new Apartment
             {
-                Address = kufarAppartment.Address,
-                Created = kufarAppartment.ListTime,
+                Address = kufarApartment.Address,
+                Created = kufarApartment.ListTime,
                 IsCreatedByOwner = detailsPartial?.IsCompanyAd == 0
             };
 
@@ -28,21 +28,22 @@ namespace TrackApartments.Kufar.Domain.Connector.Extensions
 
                 if (new PhoneRegex().Expression.IsMatch(detailsPartial.Phone))
                 {
-                    appartment.Phones = new List<string> { detailsPartial.Phone };
+                    apartment.Phones = new List<string> { detailsPartial.Phone };
                 }
             }
 
-            if (Single.TryParse(kufarAppartment.PriceUSD, out float price) && price > 0)
+            if (Single.TryParse(kufarApartment.PriceUSD, out float price) && price > 0)
             {
-                appartment.Price = price / 100;
+                apartment.Price = price / 100;
             }
 
-            appartment.Rooms = kufarAppartment.Rooms;
-            appartment.Updated = kufarAppartment.ListTime;
-            appartment.Uri = new Uri(kufarAppartment.Url);
-            appartment.Source = DataSource.Kufar;
+            apartment.SourceId = kufarApartment.Id.ToString();
+            apartment.Rooms = kufarApartment.Rooms;
+            apartment.Updated = kufarApartment.ListTime;
+            apartment.Uri = new Uri(kufarApartment.Url);
+            apartment.Source = DataSource.Kufar;
 
-            return appartment;
+            return apartment;
         }
     }
 }
