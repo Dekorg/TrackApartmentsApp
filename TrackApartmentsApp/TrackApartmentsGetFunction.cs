@@ -1,14 +1,10 @@
-
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 using TrackApartments.Get;
 using TrackApartments.Get.Infrastructure.Configuration;

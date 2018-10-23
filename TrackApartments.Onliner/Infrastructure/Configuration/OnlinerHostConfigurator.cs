@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,9 @@ namespace TrackApartments.Onliner.Infrastructure.Configuration
 {
     public class OnlinerHostConfigurator
     {
+        //Currently it's better to use static client that is shared between func instances to avoid socket exhaustion.
+        public static readonly HttpClient Client = new HttpClient();
+
         public IHost BuildHost(ExecutionContext context, ILogger log)
         {
             var builder = new HostBuilder()
@@ -33,7 +37,8 @@ namespace TrackApartments.Onliner.Infrastructure.Configuration
                     services.AddOptions();
                     services.AddScoped<ILoadEngine, LoadEngine>();
 
-                    services.AddHttpClient<ILoadEngine, LoadEngine>();
+                    services.AddScoped<ILoadEngine, LoadEngine>();
+                    services.AddSingleton<HttpClient>(Client);
 
                     services.AddScoped<IResponseParser, ResponseParser>();
                     services.AddScoped<IOnlinerPageParser, OnlinerPageParser>();
@@ -49,9 +54,9 @@ namespace TrackApartments.Onliner.Infrastructure.Configuration
         }
 
 
-        private static async Task LoadSecretSettings(QueueStorageSettings queueStorageSettings, AppSettings appSettings)
+        private static async Task LoadSecretSettings(QueueStorageSettings queueStorageSettings, AppSettings appSettings, KeyVaultSettings keyVaultSettings)
         {
-            var store = new SecretsStore(appSettings.KeyVaultBaseUrl);
+            var store = new SecretsStore(appSettings.KeyVaultBaseUrl, keyVaultSettings.ClientId, keyVaultSettings.ClientSecret);
             queueStorageSettings.ConnectionString = await store.GetOrLoadSettingAsync(queueStorageSettings.ConnectionString);
         }
 
@@ -59,11 +64,13 @@ namespace TrackApartments.Onliner.Infrastructure.Configuration
         {
             var storageSettings = new QueueStorageSettings();
             var appSettings = new AppSettings();
+            var keyVaultSettings = new KeyVaultSettings();
 
             hostContext.Configuration.GetSection(nameof(QueueStorageSettings)).Bind(storageSettings);
             hostContext.Configuration.GetSection(nameof(AppSettings)).Bind(appSettings);
+            hostContext.Configuration.GetSection(nameof(KeyVaultSettings)).Bind(keyVaultSettings);
 
-            LoadSecretSettings(storageSettings, appSettings)
+            LoadSecretSettings(storageSettings, appSettings, keyVaultSettings)
                 .GetAwaiter()
                 .GetResult();
 

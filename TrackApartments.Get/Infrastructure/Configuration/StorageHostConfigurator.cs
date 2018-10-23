@@ -33,7 +33,7 @@ namespace TrackApartments.Get.Infrastructure.Configuration
                 {
                     services.AddOptions();
                     services.AddScoped<IStorageWorker, StorageWorker>();
-                    services.AddScoped<IStorageReadRepository<Apartment>, StorageAppartmentReadRepository>();
+                    services.AddScoped<IStorageReadRepository<Apartment>, StorageApartmentReadRepository>();
                     services.AddScoped<IStorageConnector, StorageConnector>();
                     services.AddScoped<GetApartmentService>();
                     services.AddSingleton(log);
@@ -44,22 +44,26 @@ namespace TrackApartments.Get.Infrastructure.Configuration
             return builder.Build();
         }
 
-
-        private static async Task LoadSecretSettings(StorageSettings storageSettings, AppSettings appSettings)
+        private static async Task LoadSecretSettings(
+            StorageSettings storageSettings,
+            AppSettings appSettings,
+            KeyVaultSettings keyVaultSettings)
         {
-            var store = new SecretsStore(appSettings.KeyVaultBaseUrl);
+            var store = new SecretsStore(appSettings.KeyVaultBaseUrl, keyVaultSettings.ClientId, keyVaultSettings.ClientSecret);
             storageSettings.ConnectionString = await store.GetOrLoadSettingAsync(storageSettings.ConnectionString);
         }
 
         private static void ConfigureSettings(HostBuilderContext hostContext, IServiceCollection services)
         {
             var storageSettings = new StorageSettings();
-
             var appSettings = new AppSettings();
+            var keyVaultSettings = new KeyVaultSettings();
+
             hostContext.Configuration.GetSection(nameof(StorageSettings)).Bind(storageSettings);
             hostContext.Configuration.GetSection(nameof(AppSettings)).Bind(appSettings);
+            hostContext.Configuration.GetSection(nameof(KeyVaultSettings)).Bind(keyVaultSettings);
 
-            LoadSecretSettings(storageSettings, appSettings)
+            LoadSecretSettings(storageSettings, appSettings, keyVaultSettings)
                 .GetAwaiter()
                 .GetResult();
 

@@ -25,6 +25,8 @@ namespace TrackApartments.Contracts.Models
 
         public Uri Uri { get; set; }
 
+        public string SourceId { get; set; }
+
         public DataSource Source { get; set; }
 
         public override string ToString()

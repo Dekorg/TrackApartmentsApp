@@ -19,12 +19,16 @@ namespace TrackApartments.Data.Abstract
             table = tableClient.GetTableReference(settings.TableName);
 
             //todo rewrite to CosmosDb. Currently in preview.
-            table.CreateIfNotExistsAsync().GetAwaiter().GetResult();
+            if (!table.ExistsAsync().GetAwaiter().GetResult())
+            {
+                table.CreateIfNotExistsAsync().GetAwaiter().GetResult();
+            }
         }
 
         public async Task SaveAsync<T>(T item) where T : ITableEntity, new()
         {
-            var operation = TableOperation.InsertOrReplace(item);
+            item.ETag = "*";
+            var operation = TableOperation.InsertOrMerge(item);
             await table.ExecuteAsync(operation);
         }
 
@@ -41,6 +45,13 @@ namespace TrackApartments.Data.Abstract
             while (token != null);
 
             return entities.Where(x => x.PartitionKey == key).ToList();
+        }
+
+        public async Task<T> LoadAsync<T>(string partitionKey, string rowKey) where T : ITableEntity, new()
+        {
+            var retrieveOperation = TableOperation.Retrieve<T>(partitionKey, rowKey);
+            TableResult retrievedResult = await table.ExecuteAsync(retrieveOperation);
+            return (T)retrievedResult.Result;
         }
 
         public async Task DeleteAsync<T>(T item) where T : ITableEntity, new()

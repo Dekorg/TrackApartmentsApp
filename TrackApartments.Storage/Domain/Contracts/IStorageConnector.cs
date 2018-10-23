@@ -10,8 +10,6 @@ namespace TrackApartments.Storage.Domain.Contracts
 
         bool IsObsoleteItem(Apartment apartment);
 
-        Task DeleteObsoleteItemsAsync(List<Apartment> savedItems);
-
         Task SaveItemAsync(Apartment newItem);
     }
 }
