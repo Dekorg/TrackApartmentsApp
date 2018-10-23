@@ -6,25 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="2.1.1" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.19" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\TrackApartments.Contracts\TrackApartments.Contracts.csproj" />
-    <ProjectReference Include="..\TrackApartments.Core\TrackApartments.Core.csproj" />
-    <ProjectReference Include="..\TrackApartments.Data.Contracts\TrackApartments.Data.Contracts.csproj" />
-    <ProjectReference Include="..\TrackApartments.Data\TrackApartments.Data.csproj" />
-    <ProjectReference Include="..\TrackApartments.Shared\TrackApartments.Shared.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="2.1.1" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.23" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
