@@ -6,13 +6,15 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TrackApartments.Contracts.Models;
 using TrackApartments.Core.Secrets;
+using TrackApartments.Onliner.Settings;
 using TrackApartments.User.Domain.Queue;
 using TrackApartments.User.Domain.Queue.Contracts;
 using TrackApartments.User.Domain.Sinks;
 using TrackApartments.User.Domain.Sinks.Abstract;
 using TrackApartments.User.Domain.Sinks.Conditions;
 using TrackApartments.User.Domain.Sinks.Conditions.Interfaces;
-using TrackApartments.User.Settings;
+using AppSettings = TrackApartments.User.Settings.AppSettings;
+using QueueStorageSettings = TrackApartments.User.Settings.QueueStorageSettings;
 
 namespace TrackApartments.User.Infrastructure.Configuration
 {
@@ -65,9 +67,12 @@ namespace TrackApartments.User.Infrastructure.Configuration
         }
 
 
-        private static async Task LoadSecretSettings(QueueStorageSettings queueStorageSettings, AppSettings appSettings)
+        private static async Task LoadSecretSettings(
+            QueueStorageSettings queueStorageSettings,
+            AppSettings appSettings,
+            KeyVaultSettings keyVaultSettings)
         {
-            var store = new SecretsStore(appSettings.KeyVaultBaseUrl);
+            var store = new SecretsStore(appSettings.KeyVaultBaseUrl, keyVaultSettings.ClientId, keyVaultSettings.ClientSecret);
             queueStorageSettings.ConnectionString = await store.GetOrLoadSettingAsync(queueStorageSettings.ConnectionString);
         }
 
@@ -75,11 +80,13 @@ namespace TrackApartments.User.Infrastructure.Configuration
         {
             var queueStorageSettings = new QueueStorageSettings();
             var appSettings = new AppSettings();
+            var keyVaultSettings = new KeyVaultSettings();
 
             hostContext.Configuration.GetSection(nameof(AppSettings)).Bind(appSettings);
             hostContext.Configuration.GetSection(nameof(QueueStorageSettings)).Bind(queueStorageSettings);
+            hostContext.Configuration.GetSection(nameof(KeyVaultSettings)).Bind(keyVaultSettings);
 
-            LoadSecretSettings(queueStorageSettings, appSettings)
+            LoadSecretSettings(queueStorageSettings, appSettings, keyVaultSettings)
                 .GetAwaiter()
                 .GetResult();
 

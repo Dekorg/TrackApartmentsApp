@@ -36,7 +36,7 @@ namespace TrackApartments.User
                     },
                     SmsSettings = new SinkSettings
                     {
-                        DesiredPriceBorder = 300,
+                        DesiredPriceBorder = 350,
                         IsNewPeriod = 1,
                         IsOnlyOwner = true
                     }

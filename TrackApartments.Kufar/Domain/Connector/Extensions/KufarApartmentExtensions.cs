@@ -40,7 +40,7 @@ namespace TrackApartments.Kufar.Domain.Connector.Extensions
             apartment.SourceId = kufarApartment.Id.ToString();
             apartment.Rooms = kufarApartment.Rooms;
             apartment.Updated = kufarApartment.ListTime;
-            apartment.Uri = new Uri(kufarApartment.Url);
+            apartment.Uri = new Uri($"https://re.kufar.by/vi/{kufarApartment.Id}");
             apartment.Source = DataSource.Kufar;
 
             return apartment;

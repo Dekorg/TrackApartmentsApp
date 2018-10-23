@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using TrackApartments.Contracts.Models;
 using TrackApartments.User;
 using TrackApartments.User.Infrastructure.Configuration;
+using ExecutionContext = Microsoft.Azure.WebJobs.ExecutionContext;
 
 namespace TrackApartmentsApp
 {

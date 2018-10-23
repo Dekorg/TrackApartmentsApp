@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
@@ -25,13 +26,13 @@ namespace TrackApartmentsApp
             var onlinerUrl = config.GetSection("SourceSettings:OnlinerURL").Value;
             var kufarUrl = config.GetSection("SourceSettings:KufarURL").Value;
 
-            FireAndForget(kufarUrl, onlinerUrl);
-        }
+            if (!string.IsNullOrEmpty(onlinerUrl))
+            {
+                var urls = onlinerUrl.Split(',');
+                Array.ForEach(urls, x => CachedClient.GetAsync(x));
+            }
 
-        private static void FireAndForget(string kufarUrl, string onlinerUrl)
-        {
-            CachedClient.GetAsync(onlinerUrl);
-            CachedClient.GetAsync(kufarUrl);
+            //CachedClient.GetAsync(kufarUrl);
         }
     }
 }

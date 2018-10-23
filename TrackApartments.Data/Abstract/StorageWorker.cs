@@ -28,7 +28,7 @@ namespace TrackApartments.Data.Abstract
         public async Task SaveAsync<T>(T item) where T : ITableEntity, new()
         {
             item.ETag = "*";
-            var operation = TableOperation.InsertOrReplace(item);
+            var operation = TableOperation.InsertOrMerge(item);
             await table.ExecuteAsync(operation);
         }
 
