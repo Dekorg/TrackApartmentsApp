@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.Services.AppAuthentication;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace TrackApartments.Core.Secrets
 {
     public sealed class SecretsStore
     {
         private readonly string keyVaultUrl;
+        private readonly string clientId;
+        private readonly string clientSecret;
+
         private static readonly ConcurrentDictionary<string, string> CachedDictionary = new ConcurrentDictionary<string, string>();
+        private static KeyVaultClient client;
 
-        //This client is located in a shared lib and is static 
-        //to share it between functions and between instances of those functions.
-        private static readonly HttpClient SharedClient = new HttpClient();
-
-        public SecretsStore(string keyVaultUrl)
+        public SecretsStore(string keyVaultUrl, string clientId, string clientSecret)
         {
             this.keyVaultUrl = keyVaultUrl;
-        }
+            this.clientId = clientId;
+            this.clientSecret = clientSecret;
 
-        private static readonly Lazy<KeyVaultClient> VaultClient = new Lazy<KeyVaultClient>(GetStore);
+            client = client ?? GetStore();
+        }
 
         public async Task<string> GetOrLoadSettingAsync(string secretId)
         {
             if (!CachedDictionary.TryGetValue(secretId, out var value))
             {
-                string tableString = (await VaultClient.Value.GetSecretAsync(keyVaultUrl, secretId)).Value;
+                string tableString = (await client.GetSecretAsync(keyVaultUrl, secretId)).Value;
                 CachedDictionary.TryAdd(secretId, tableString);
                 value = tableString;
             }
@@ -36,14 +36,22 @@ namespace TrackApartments.Core.Secrets
             return value;
         }
 
-        private static KeyVaultClient GetStore()
+        private KeyVaultClient GetStore()
         {
-            var azureServiceTokenProvider = new AzureServiceTokenProvider();
-            var keyVaultClient = new KeyVaultClient(
-                new KeyVaultClient.AuthenticationCallback(
-                    azureServiceTokenProvider.KeyVaultTokenCallback),
-                SharedClient);
-            return keyVaultClient;
+            var kv = new KeyVaultClient(GetToken);
+            return kv;
+        }
+
+        public async Task<string> GetToken(string authority, string resource, string scope)
+        {
+            var authContext = new AuthenticationContext(authority);
+            var clientCred = new ClientCredential(clientId, clientSecret);
+            AuthenticationResult result = await authContext.AcquireTokenAsync(resource, clientCred);
+
+            if (result == null)
+                throw new InvalidOperationException("Failed to obtain the JWT token");
+
+            return result.AccessToken;
         }
     }
 }

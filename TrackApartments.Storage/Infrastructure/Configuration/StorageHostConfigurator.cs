@@ -47,9 +47,13 @@ namespace TrackApartments.Storage.Infrastructure.Configuration
         }
 
 
-        private static async Task LoadSecretSettings(QueueStorageSettings queueStorageSettings, StorageSettings storageSettings, AppSettings appSettings)
+        private static async Task LoadSecretSettings(
+            QueueStorageSettings queueStorageSettings,
+            StorageSettings storageSettings,
+            AppSettings appSettings,
+            KeyVaultSettings keyVaultSettings)
         {
-            var store = new SecretsStore(appSettings.KeyVaultBaseUrl);
+            var store = new SecretsStore(appSettings.KeyVaultBaseUrl, keyVaultSettings.ClientId, keyVaultSettings.ClientSecret);
             storageSettings.ConnectionString = await store.GetOrLoadSettingAsync(storageSettings.ConnectionString);
             queueStorageSettings.ConnectionString = await store.GetOrLoadSettingAsync(queueStorageSettings.ConnectionString);
         }
@@ -58,13 +62,15 @@ namespace TrackApartments.Storage.Infrastructure.Configuration
         {
             var storageSettings = new StorageSettings();
             var queueStorageSettings = new QueueStorageSettings();
-
+            var keyVaultSettings = new KeyVaultSettings();
             var appSettings = new AppSettings();
+
             hostContext.Configuration.GetSection(nameof(StorageSettings)).Bind(storageSettings);
             hostContext.Configuration.GetSection(nameof(AppSettings)).Bind(appSettings);
             hostContext.Configuration.GetSection(nameof(QueueStorageSettings)).Bind(queueStorageSettings);
+            hostContext.Configuration.GetSection(nameof(KeyVaultSettings)).Bind(keyVaultSettings);
 
-            LoadSecretSettings(queueStorageSettings, storageSettings, appSettings)
+            LoadSecretSettings(queueStorageSettings, storageSettings, appSettings, keyVaultSettings)
                 .GetAwaiter()
                 .GetResult();
 

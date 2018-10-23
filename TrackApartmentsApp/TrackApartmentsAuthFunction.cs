@@ -17,12 +17,6 @@ namespace TrackApartmentsApp
 
             var authentication = req.TryAuthenticate(out AuthenticationModel model);
 
-            //string name = req.Query["name"];
-
-            //string requestBody = new StreamReader(req.Body).ReadToEnd();
-            //dynamic data = JsonConvert.DeserializeObject(requestBody);
-            //name = name ?? data?.name;
-
             return authentication
                 ? (ActionResult)new OkObjectResult($"This is my Auth: {model}, {model.AccessToken}")
                 : new BadRequestObjectResult("Not authorized.");
